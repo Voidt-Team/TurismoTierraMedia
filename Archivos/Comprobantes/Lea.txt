@@ -1,0 +1,18 @@
+Nombre: Lea
+==================================================================================
+Detalles de su compra: 
+==================================================================================
+Promociones Compradas:
+----------------------------------------------------------------------------------
+Promocion: Pack paisajes, precio: 10.0 monedas, duracion: 4.5 hs., bonus: Erebor
+Atracciones Incluidas:
+* Minas Tirith
+* Abismo de Helm
+----------------------------------------------------------------------------------
+Promocion: Pack degustacion, precio: 36.0 monedas, duracion: 7.5 hs., bonus: ¡se ahorra 2.0 monedas!
+Atracciones Incluidas:
+* Lothlorien
+* La Comarca
+Costo total de las promociones: 46.0
+Tiempo total de las promociones: 12.0
+----------------------------------------------------------------------------------

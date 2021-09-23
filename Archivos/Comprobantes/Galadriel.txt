@@ -1,0 +1,13 @@
+Nombre: Galadriel
+==================================================================================
+Detalles de su compra: 
+==================================================================================
+Promociones Compradas:
+----------------------------------------------------------------------------------
+Promocion: Pack paisajes, precio: 10.0 monedas, duracion: 4.5 hs., bonus: Erebor
+Atracciones Incluidas:
+* Minas Tirith
+* Abismo de Helm
+Costo total de las promociones: 10.0
+Tiempo total de las promociones: 4.5
+----------------------------------------------------------------------------------

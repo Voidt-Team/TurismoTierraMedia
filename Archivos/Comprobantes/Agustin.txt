@@ -1,0 +1,13 @@
+Nombre: Agustin
+==================================================================================
+Detalles de su compra: 
+==================================================================================
+Promociones Compradas:
+----------------------------------------------------------------------------------
+Promocion: Pack aventuragratis, precio: 35.0 monedas, duracion: 5.0 hs., bonus: Bosque Negro
+Atracciones Incluidas:
+* Mordor
+* Moria
+Costo total de las promociones: 35.0
+Tiempo total de las promociones: 5.0
+----------------------------------------------------------------------------------
