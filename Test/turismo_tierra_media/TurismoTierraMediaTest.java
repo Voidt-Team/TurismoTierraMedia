@@ -19,9 +19,9 @@ public class TurismoTierraMediaTest {
 	@Before
 	public void setUp() {
 		
-		listaUsuarios=TurismoTierraMedia.leerUsuarios();
-		listaAtracciones = TurismoTierraMedia.leerAtracciones();
-		listaPromociones = TurismoTierraMedia.leerPromociones();
+		listaUsuarios=LectorDeArchivos.leerUsuarios();
+		listaAtracciones = LectorDeArchivos.leerAtracciones();
+		listaPromociones = LectorDeArchivos.leerPromociones();
 		
 	}
 	
@@ -40,20 +40,11 @@ public class TurismoTierraMediaTest {
 		assertNotNull(listaAtracciones);;
 	}
 	
-	@Test
-	public void testcostoMinimoAtraccion() {//el costo minimo de las atracciones es 3.
-		assertEquals(3, TurismoTierraMedia.costoMin(), 0);
-	}
-	
-	@Test
-	public void testtiempoMinimoAtraccion() {//el tiempo minimo de las atracciones es 1.
-		assertEquals(1, TurismoTierraMedia.tiempoMin(), 0);
-	}
-	
+
 	
 	@Test
 	public void testbuscadorAtraccion() {//busca la atraccion y de paso pregunta su tiempo para saber que esta trayendo el objeto
-		prueba = TurismoTierraMedia.buscadorAtraccion("La Comarca");
+		prueba = LectorDeArchivos.buscadorAtraccion("La Comarca");
 		Assert.assertEquals("La Comarca",prueba.getNombre());
 		Assert.assertEquals(6.5,prueba.getTiempo(),0);
 		
@@ -63,17 +54,16 @@ public class TurismoTierraMediaTest {
 	public void testOrdenarAtraccionesPorCostoHoras() {
 		List<Atraccion> listaCopia;
 		listaCopia = new ArrayList<>(listaAtracciones);
-		TurismoTierraMedia.ordenarAtraccionesCostoHoras(listaCopia);
+		Sugeridor.ordenarAtraccionesCostoHoras(listaCopia);
 		Assert.assertNotEquals(listaAtracciones, listaCopia);
 		
 	}
 	
 	@Test
-	public void actualizarCupoAtraccion() {//recibe una lista de atraccion y le resta 1 a su cupo
-		List<Atraccion> listaCopia;
-		listaCopia = new ArrayList<>(listaAtracciones);
-		TurismoTierraMedia.actualizarCupoAtraccion(listaCopia, 2);
-		Assert.assertNotEquals(150, listaCopia.get(2).getCupo());
+	public void actualizarCupoAtraccion() {//recibe una atraccion y le resta 1 a su cupo
+		Atraccion atraccion = listaAtracciones.get(2);
+		Sugeridor.actualizarCupoAtraccion(atraccion);
+		Assert.assertNotEquals(150, atraccion.getCupo());
 		
 	}
 
