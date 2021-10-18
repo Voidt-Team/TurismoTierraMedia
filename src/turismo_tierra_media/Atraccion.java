@@ -46,4 +46,6 @@ public class Atraccion {
 		this.cupo = cupo;
 	}
 
+	
+	
 }
