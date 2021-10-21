@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TurismoTierraMedia {
-
+//se conecto la base de datos en el db bear...
 	private static List<Usuario> listaUsuarios = LectorDeArchivos.leerUsuarios();
 
 	//Consola de lista de usuarios
