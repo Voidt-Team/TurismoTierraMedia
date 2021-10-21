@@ -5,12 +5,13 @@ import java.util.List;
 
 
 public class Usuario {
+	
 	// Ordenamos los atributos segun el orden del txt.-
 	private String nombre;
 	private String atraccionPreferida;
 	private int presupuesto;
-	
 	private double tiempoDisponible;
+	
 	private List<Atraccion> historialAtracciones;
 	private List<Promocion> historialPromociones;
 	private List<Atraccion> todasLasAtracciones;
