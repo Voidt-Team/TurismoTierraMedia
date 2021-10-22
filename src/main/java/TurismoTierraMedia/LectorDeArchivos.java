@@ -1,4 +1,4 @@
-package turismo_tierra_media;
+package TurismoTierraMedia;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
