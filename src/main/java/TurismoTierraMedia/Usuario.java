@@ -1,86 +1,82 @@
 package TurismoTierraMedia;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class Usuario {
 	
 	// Ordenamos los atributos segun el orden del txt.-
+	private Integer id;
 	private String nombre;
-	private String atraccionPreferida;
-	private int presupuesto;
-	private double tiempoDisponible;
+	private double presupuesto;
+	private double tiempo;
+	private Integer idTipoAtraccion;
+	private Integer idItinerario;
 	
-	private List<Atraccion> historialAtracciones;
-	private List<Promocion> historialPromociones;
-	private List<Atraccion> todasLasAtracciones;
-	
-	//Constructor
-	public Usuario(String nombre, String atraccionPreferida, int presupuesto, double tiempoDisponible) {
+
+	//este constructor no usa el campo id porque es un atributo que se autogenera en la base de datos...
+	public Usuario(String nombre, double presupuesto, double tiempo, Integer idTipoAtraccion) {
+		super();
 		this.nombre = nombre;
-		this.atraccionPreferida = atraccionPreferida;
 		this.presupuesto = presupuesto;
-		this.tiempoDisponible = tiempoDisponible;
-		this.historialAtracciones = new ArrayList<Atraccion>();
-		this.historialPromociones = new ArrayList<Promocion>();
-		this.todasLasAtracciones = new ArrayList<Atraccion>();
+		this.tiempo = tiempo;
+		this.idTipoAtraccion = idTipoAtraccion;
 	}
 	
-	
-
-	// Almacena la sugerencia del usuario en el ArrayList historialAtracciones
-	public void seleccionSugerencia() {
-		
+	//getter y setter de los atributos
+	protected Integer getId() {
+		return id;
 	}
 
-	//Getters y Setters
-	public List<Atraccion> getHistorialAtracciones() {
-		return historialAtracciones;
+	protected void setId(Integer id) {
+		this.id = id;
 	}
 
-
-	public String getNombre() {
+	protected String getNombre() {
 		return nombre;
 	}
 
-	public String getAtraccionPreferida() {
-		return atraccionPreferida;
+	protected void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public int getPresupuesto() {
+	protected double getPresupuesto() {
 		return presupuesto;
 	}
 
-	public double getTiempoDisponible() {
-		return tiempoDisponible;
-	}
-
-	public void setPresupuesto(int presupuesto) {
+	protected void setPresupuesto(double presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 
-	public void setTiempoDisponible(double tiempoDisponible) {
-		this.tiempoDisponible = tiempoDisponible;
+	protected double getTiempo() {
+		return tiempo;
 	}
 
-	public List<Promocion> getHistorialPromociones() {
-		return historialPromociones;
+	protected void setTiempo(double tiempo) {
+		this.tiempo = tiempo;
 	}
 
-	public List<Atraccion> getTodasLasAtracciones() {
-		return todasLasAtracciones;
+	protected Integer getIdTipoAtraccion() {
+		return idTipoAtraccion;
 	}
 
+	protected void setIdTipoAtraccion(Integer idTipoAtraccion) {
+		this.idTipoAtraccion = idTipoAtraccion;
+	}
 
+	protected Integer getIdItinerario() {
+		return idItinerario;
+	}
+
+	protected void setIdItinerario(Integer idItinerario) {
+		this.idItinerario = idItinerario;
+	}
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", atraccionPreferida=" + atraccionPreferida + ", presupuesto="
-				+ presupuesto + ", tiempoDisponible=" + tiempoDisponible + ", historialAtracciones="
-				+ historialAtracciones + ", historialPromociones=" + historialPromociones + ", todasLasAtracciones="
-				+ todasLasAtracciones + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", presupuesto=" + presupuesto + ", tiempo=" + tiempo
+				+ ", idTipoAtraccion=" + idTipoAtraccion + ", idItinerario=" + idItinerario + "]";
 	}
+
+	
 	
 	
 }

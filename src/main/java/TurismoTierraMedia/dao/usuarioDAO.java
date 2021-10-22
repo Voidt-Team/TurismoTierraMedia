@@ -32,15 +32,15 @@ public class usuarioDAO {
 		return usuarios;
 
 	}
-	//acomodar la clase usuario para que concuerde con la tabla... por eso el error...
+	
+	//este metodo se encarga de llamar al constructor con los resultados de la consulta
 	public Usuario toUsuario(ResultSet resultSet) throws SQLException {
-		Integer id = resultSet.getInt("id");
 		String nombre = resultSet.getString("nombre");
 		Double presupuesto = resultSet.getDouble("presupuesto");
 		Double tiempo = resultSet.getDouble("tiempo");
 		Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
 
-		return new Usuario(id, nombre, presupuesto, tiempo,tipo_atraccion_id);
+		return new Usuario(nombre, presupuesto, tiempo,tipo_atraccion_id);
 
 	}
 
