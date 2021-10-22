@@ -26,10 +26,6 @@ public class Usuario {
 		return id;
 	}
 
-	protected void setId(Integer id) {
-		this.id = id;
-	}
-
 	protected String getNombre() {
 		return nombre;
 	}
