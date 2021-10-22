@@ -1,9 +1,19 @@
 package TurismoTierraMedia.db;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class ConnectionProvider {
 
-	public ConnectionProvider() {
-		// TODO Auto-generated constructor stub
+private static Connection connection;
+	
+	public static Connection getConnection() throws SQLException {
+		if (connection == null) {
+			connection = DriverManager.getConnection("jdbc:sqlite:turismo_tierra_media.db");
+		}
+		
+		return connection;
 	}
 
 }
