@@ -71,5 +71,16 @@ public class Usuario {
 	public List<Atraccion> getTodasLasAtracciones() {
 		return todasLasAtracciones;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", atraccionPreferida=" + atraccionPreferida + ", presupuesto="
+				+ presupuesto + ", tiempoDisponible=" + tiempoDisponible + ", historialAtracciones="
+				+ historialAtracciones + ", historialPromociones=" + historialPromociones + ", todasLasAtracciones="
+				+ todasLasAtracciones + "]";
+	}
+	
 	
 }
