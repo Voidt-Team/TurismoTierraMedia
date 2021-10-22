@@ -12,10 +12,12 @@ import TurismoTierraMedia.Usuario;
 
 public class usuarioDAO {
 
+	//este metodo devuelve una lista con todos los usuarios...
 	public List<Usuario> findAll() throws SQLException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();
-
+		
+		//formular mejor la consulta para que traiga el nombre del tipo de atraccion y no el id...
 		String query = "select * from usuarios";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
