@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class ComparadorAtracciones implements Comparator<Atraccion>{
 	
-		@Override
+		
 		public int compare(Atraccion a1, Atraccion a2) {
 
 			Integer costo1 = a2.getCosto();
