@@ -12,12 +12,12 @@ import TurismoTierraMedia.db.ConnectionProvider;
 
 public class AtraccionDAO {
 	
-	//este metodo devuelve una lista con todos los usuarios...
+	//este metodo devuelve una lista con todas las atracciones que tienen cupo...
 		public List<Atraccion> findAll() throws SQLException {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
 			
-			String query = "select * from atraccion";
+			String query = "select a.id,a.nombre,a.costo,a.tiempo,a.cupo, t.nombre as 'tipo atraccion' from atraccion a inner join tipo_de_atraccion t where a.tipo_atraccion_id=t.id and a.cupo>0 order by a.nombre";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -35,11 +35,11 @@ public class AtraccionDAO {
 			Double costo = resultSet.getDouble("costo");
 			Double tiempo = resultSet.getDouble("tiempo");
 			Integer cupo = resultSet.getInt("cupo");
-			Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
+			String tipo_atraccion= resultSet.getString("tipo_atraccion");
 			Double latitud = resultSet.getDouble("latitud");
 			Double longitud = resultSet.getDouble("longitud");
 
-			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion_id, latitud, longitud);
+			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion, latitud, longitud);
 		}
 
 }

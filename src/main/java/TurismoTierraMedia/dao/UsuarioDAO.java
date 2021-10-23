@@ -13,7 +13,7 @@ import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
 
-	// este metodo devuelve una lista con todos los usuarios y sus tipo de atraccion...
+	// este metodo devuelve una lista con todos los usuarios y sus tipo de atraccion con plata y tiempo...
 	public List<Usuario> findAll() throws SQLException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();

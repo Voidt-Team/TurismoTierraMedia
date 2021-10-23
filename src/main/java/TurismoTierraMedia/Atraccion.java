@@ -8,18 +8,18 @@ public class Atraccion {
 	private Double costo;
 	private Double tiempo;
 	private Integer cupo;
-	private Integer tipo_atraccion_id;
+	private String tipo_atraccion;
 	private Double latitud;
 	private Double longitud;
 
-	public Atraccion(Integer id,String nombre, Double costo, Double tiempo, Integer cupo, Integer tipo_atraccion_id, Double latitud, Double longitud) {
+	public Atraccion(Integer id,String nombre, Double costo, Double tiempo, Integer cupo, String tipo_atraccion, Double latitud, Double longitud) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.costo = costo;
 		this.tiempo = tiempo;
 		this.cupo = cupo;
-		this.tipo_atraccion_id = tipo_atraccion_id;
+		this.tipo_atraccion = tipo_atraccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 	} 
@@ -29,8 +29,8 @@ public class Atraccion {
 	}
 
 
-	public Integer getTipoDeAtraccion() {
-		return tipo_atraccion_id;
+	public String getTipoDeAtraccion() {
+		return tipo_atraccion;
 	}
 
 
@@ -66,6 +66,8 @@ public class Atraccion {
 	@Override
 	public String toString() {
 		return "Atraccion [id=" + id + ", nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo="
-				+ cupo + ", tipo_atraccion_id=" + tipo_atraccion_id + "]";
+				+ cupo + ", tipo_atraccion=" + tipo_atraccion + ", latitud=" + latitud + ", longitud=" + longitud + "]";
 	}
+
+	
 }
