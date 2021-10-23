@@ -41,7 +41,7 @@ public class App {
 				opcion = 99999;
 			} catch (IndexOutOfBoundsException ex) {
 				System.out
-						.println("El valor ingresado solamente puede ser un entero entre 1 y " + listaUsuarios.size());
+						.println("El valor ingresado solamente puede ser un entero entre 1 y " + lusuarios.size());
 			}
 		}
 	}
