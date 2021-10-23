@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TurismoTierraMedia.db.ConnectionProvider;
-import pharmaturn.Producto;
 import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
