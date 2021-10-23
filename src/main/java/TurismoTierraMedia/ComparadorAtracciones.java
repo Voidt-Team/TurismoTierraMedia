@@ -7,8 +7,8 @@ public class ComparadorAtracciones implements Comparator<Atraccion>{
 		
 		public int compare(Atraccion a1, Atraccion a2) {
 
-			Integer costo1 = a2.getCosto();
-			Integer costo2 = a1.getCosto();
+			Double costo1 = a2.getCosto();
+			Double costo2 = a1.getCosto();
 	        int resComp = costo1.compareTo(costo2);
 
 	        if (resComp != 0) {

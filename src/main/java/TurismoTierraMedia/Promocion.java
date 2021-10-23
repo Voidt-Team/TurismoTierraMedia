@@ -1,32 +1,40 @@
 package TurismoTierraMedia;
 import java.util.List;
 
-public abstract class Promocion {
+public class Promocion {
 	
 	protected String nombre;
-	protected List<Atraccion> atracciones;
+	protected Integer absoluta; 
+	protected Integer axb;
+	protected Double porcentual;
 	
-	public Promocion(String nombrePromocion, List<Atraccion> atraccionesIncluidas) {
+	public Promocion(String nombre, Integer absoluta, Integer axb, Double porcentual) {
 		super();
-		this.nombre = nombrePromocion;
-		this.atracciones = atraccionesIncluidas;
+		this.nombre = nombre;
+		this.absoluta = absoluta;
+		this.axb = axb;
+		this.porcentual = porcentual;
 	}
 
 	public String getNombre() { 
 		return nombre;
 	}
 	
-	public List<Atraccion> getAtracciones() {
-		return atracciones;
+	//Metodos implementados en las subclases
+	public String ImprimirBonus() {
+
 	}
 	
-	//Metodos implementados en las subclases
-	public abstract String ImprimirBonus();
-	
-	public abstract double costoPromocion();
+	public double costoPromocion() {
+		return costo;
+	}
 
-	public abstract double tiempoPromocion();
+	public double tiempoPromocion() {
+		return horas; 
+	}
 	
-	public abstract int tipoPromocion();
+	public int tipoPromocion() {
+		return 1; 
+	}
 	
 }

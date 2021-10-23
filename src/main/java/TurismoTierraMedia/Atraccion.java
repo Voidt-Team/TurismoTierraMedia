@@ -4,18 +4,18 @@ package TurismoTierraMedia;
 public class Atraccion {
 
 	private String nombre;
-	private int costo;
-	private double tiempo;
-	private int cupo;
-	private String tipoDeAtraccion;
+	private Double costo;
+	private Double tiempo;
+	private Integer cupo;
+	private Integer tipo_atraccion_id;
 
-	public Atraccion(String nombre, int costo, double tiempo, int cupo, String tipoDeAtraccion) {
+	public Atraccion(String nombre, Double costo, Double tiempo, Integer cupo, Integer tipo_atraccion_id) {
 		super();
 		this.nombre = nombre;
 		this.costo = costo;
 		this.tiempo = tiempo;
 		this.cupo = cupo;
-		this.tipoDeAtraccion = tipoDeAtraccion;
+		this.tipo_atraccion_id = tipo_atraccion_id;
 	} 
 
 	public String getNombre() {
@@ -23,12 +23,12 @@ public class Atraccion {
 	}
 
 
-	public String getTipoDeAtraccion() {
-		return tipoDeAtraccion;
+	public Integer getTipoDeAtraccion() {
+		return tipo_atraccion_id;
 	}
 
 
-	public int getCosto() {
+	public Double getCosto() {
 		return costo;
 	}
 
