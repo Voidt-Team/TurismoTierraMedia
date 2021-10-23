@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TurismoTierraMedia.db.ConnectionProvider;
+import pharmaturn.Producto;
 import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
@@ -26,6 +27,30 @@ public class UsuarioDAO {
 			usuarios.add(usuario);
 		}
 		return usuarios;
+	}
+	
+	public Usuario findById(Integer id) throws SQLException {
+		Usuario usuario = null;
+
+		Connection connection = ConnectionProvider.getConnection();
+
+		String query = "select * from Usuario where id=?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		// eye! empieza en 1 el resultset
+		if (resultSet.next()) {
+			// aca, el resultset, esta posicionado en el primer resultado
+
+			// aca procesamos el resultset
+			usuario = toUsuario(resultSet);
+
+		}
+
+		return usuario;
 	}
 
 	
