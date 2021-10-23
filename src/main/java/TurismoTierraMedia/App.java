@@ -30,11 +30,11 @@ public class App {
 			if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
 				opcion = (int) Double.parseDouble(entrada);
 			} else {
-				opcion = listaUsuarios.size() + 1;
+				opcion = lusuarios.size() + 1;
 			}
 
 			try {
-				System.out.println("\nHas elegido ser: " + listaUsuarios.get(opcion - 1).getNombre());
+				System.out.println("\nHas elegido ser: " + lusuarios.get(opcion - 1).getNombre());
 				// El objeto creado se usa para llamar al metodo sugerir
 				Sugeridor.sugerir(listaUsuarios.get(opcion - 1),listaUsuarios);
 				opcion = 99999;
