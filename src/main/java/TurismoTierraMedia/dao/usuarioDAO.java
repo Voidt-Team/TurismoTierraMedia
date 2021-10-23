@@ -12,15 +12,18 @@ import TurismoTierraMedia.Usuario;
 
 public class usuarioDAO {
 
-	//este metodo devuelve una lista con todos los usuarios...
+	// este metodo devuelve una lista con todos los usuarios...
 	public List<Usuario> findAll() throws SQLException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();
-		
-		//formular mejor la consulta para que traiga el nombre del tipo de atraccion y no el id...
+
+		// formular mejor la consulta para que traiga el nombre del tipo de atraccion y
+		// no el id...
 		String query = "select * from usuarios";
-		
-		//select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id order by u.nombre
+
+		// select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion
+		// preferida' from usuario u inner join tipo_de_atraccion t where
+		// u.tipo_atraccion_id=t.id order by u.nombre
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -30,31 +33,36 @@ public class usuarioDAO {
 		}
 		return usuarios;
 	}
-	
+
 	public void insert(Usuario usu) throws SQLException {
-		//metodo no utilizable...
+		// metodo no utilizable...
 	}
-	
-	public void update(Usuario usu) throws SQLException{
-		//no se si vamos a usar este... si uno que actualice el itinerario asignado
+
+	public void update(Usuario usu) throws SQLException {
+		// no se si vamos a usar este... si uno que actualice el itinerario asignado
 	}
-	
-	public void delete(Usuario usu) throws SQLException{
-		//borra un usuario
-		//creo que para este caso de uso de base de datos, no hace falta borrarlo al usuario, sino que en el select 
-		//traiga los que tienen tiempo/costo mayor al min de tiempo y costo
-		//Solo lo borrabamos del anterior para que no los muestre en el listado
+
+	public void delete(Usuario usu) throws SQLException {
+		// borra un usuario
+		// creo que para este caso de uso de base de datos, no hace falta borrarlo al
+		// usuario, sino que en el select
+		// traiga los que tienen tiempo/costo mayor al min de tiempo y costo
+		// Solo lo borrabamos del anterior para que no los muestre en el listado
 	}
-	
-	
-	//este metodo se encarga de llamar al constructor con los resultados de la consulta
+
+	// este metodo se encarga de llamar al constructor con los resultados de la
+	// consulta
 	public Usuario toUsuario(ResultSet resultSet) throws SQLException {
 		Integer id = resultSet.getInt("id");
 		String nombre = resultSet.getString("nombre");
 		Double presupuesto = resultSet.getDouble("presupuesto");
 		Double tiempo = resultSet.getDouble("tiempo");
 		Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
-		return new Usuario(id, nombre, presupuesto, tiempo,tipo_atraccion_id);
+		Double latitud = resultSet.getDouble("latitud");
+		Double longitud = resultSet.getDouble("longitud");
+		String atraccion_preferida = resultSet.getString("nombre");// aca seria el nombre de atraccion resultado del
+																	// join
+		return new Usuario(id, nombre, presupuesto, tiempo, tipo_atraccion_id, latitud, longitud, atraccion_preferida);
 	}
 
 }

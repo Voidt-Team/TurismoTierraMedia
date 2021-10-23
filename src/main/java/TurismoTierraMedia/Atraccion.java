@@ -9,14 +9,19 @@ public class Atraccion {
 	private Double tiempo;
 	private Integer cupo;
 	private Integer tipo_atraccion_id;
+	private Double latitud;
+	private Double longitud;
 
-	public Atraccion(String nombre, Double costo, Double tiempo, Integer cupo, Integer tipo_atraccion_id) {
+	public Atraccion(Integer id,String nombre, Double costo, Double tiempo, Integer cupo, Integer tipo_atraccion_id, Double latitud, Double longitud) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.costo = costo;
 		this.tiempo = tiempo;
 		this.cupo = cupo;
 		this.tipo_atraccion_id = tipo_atraccion_id;
+		this.latitud = latitud;
+		this.longitud = longitud;
 	} 
 
 	public String getNombre() {
@@ -48,6 +53,14 @@ public class Atraccion {
 
 	protected Integer getId() {
 		return id;
+	}
+	
+	public Double getLatitud() {
+		return latitud;
+	}
+
+	public Double getLongitud() {
+		return longitud;
 	}
 
 	@Override

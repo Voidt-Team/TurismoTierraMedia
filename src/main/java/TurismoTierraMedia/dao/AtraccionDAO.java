@@ -30,13 +30,16 @@ public class AtraccionDAO {
 		
 		//este metodo se encarga de llamar al constructor con los resultados de la consulta
 		public Atraccion toAtraccion(ResultSet resultSet) throws SQLException {
+			Integer id = resultSet.getInt("id");
 			String nombre = resultSet.getString("nombre");
 			Double costo = resultSet.getDouble("costo");
 			Double tiempo = resultSet.getDouble("tiempo");
 			Integer cupo = resultSet.getInt("cupo");
 			Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
+			Double latitud = resultSet.getDouble("latitud");
+			Double longitud = resultSet.getDouble("longitud");
 
-			return new Atraccion(nombre, costo, tiempo,cupo, tipo_atraccion_id);
+			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion_id, latitud, longitud);
 		}
 
 }
