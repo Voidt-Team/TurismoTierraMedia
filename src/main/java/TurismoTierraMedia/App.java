@@ -36,7 +36,8 @@ public class App {
 			try {
 				System.out.println("\nHas elegido ser: " + lusuarios.get(opcion - 1).getNombre());
 				// El objeto creado se usa para llamar al metodo sugerir
-				Sugeridor.sugerir(listaUsuarios.get(opcion - 1),listaUsuarios);
+				
+				//Sugeridor.sugerir(listaUsuarios.get(opcion - 1),listaUsuarios);
 				opcion = 99999;
 			} catch (IndexOutOfBoundsException ex) {
 				System.out
@@ -45,15 +46,15 @@ public class App {
 		}
 	}
 	public static void imprimirUsuarios(List<Usuario> lusuarios) {
-		
+		int p= 0;
 		// creamos el iterator para recorrer la lista sin ordenar
 		Iterator<Usuario> itUsuarios = lusuarios.iterator();
 
 		// imprime la lista sin ordenar
 		while (itUsuarios.hasNext()) {
 			Usuario usuario = itUsuarios.next();
-			
-			System.out.println(usuario.getId() + " - " + usuario.getNombre() + "------>   Atraccion preferida:"
+			p++;
+			System.out.println(p + " - " + usuario.getNombre() + "------>   Atraccion preferida:"
 					+ usuario.getAtraccion_preferida() + " - Presupuesto: " + usuario.getPresupuesto() + " monedas"
 					+ " - Tiempo disponible: " + usuario.getTiempo() + " hs.");
 		}
