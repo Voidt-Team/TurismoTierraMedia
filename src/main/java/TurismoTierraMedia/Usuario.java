@@ -13,8 +13,9 @@ public class Usuario {
 	
 
 	//este constructor no usa el campo id porque es un atributo que se autogenera en la base de datos...
-	public Usuario(String nombre, double presupuesto, double tiempo, Integer idTipoAtraccion) {
+	public Usuario(Integer id,String nombre, double presupuesto, double tiempo, Integer idTipoAtraccion) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempo = tiempo;

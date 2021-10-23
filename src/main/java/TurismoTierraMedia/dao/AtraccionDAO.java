@@ -18,18 +18,14 @@ public class AtraccionDAO {
 			Connection connection = ConnectionProvider.getConnection();
 			
 			String query = "select * from atraccion";
-
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
-
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
 				Atraccion atraccion = toAtraccion(resultSet);
 				atracciones.add(atraccion);
 			}
-
 			return atracciones;
-
 		}
 		
 		//este metodo se encarga de llamar al constructor con los resultados de la consulta
@@ -41,7 +37,6 @@ public class AtraccionDAO {
 			Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
 
 			return new Atraccion(nombre, costo, tiempo,cupo, tipo_atraccion_id);
-
 		}
 
 }

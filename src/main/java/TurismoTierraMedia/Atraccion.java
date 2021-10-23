@@ -33,7 +33,6 @@ public class Atraccion {
 		return costo;
 	}
 
-
 	public double getTiempo() {
 		return tiempo;
 	}
@@ -56,7 +55,4 @@ public class Atraccion {
 		return "Atraccion [id=" + id + ", nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo="
 				+ cupo + ", tipo_atraccion_id=" + tipo_atraccion_id + "]";
 	}
-	
-	
-
 }

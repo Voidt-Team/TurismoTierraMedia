@@ -21,18 +21,14 @@ public class usuarioDAO {
 		String query = "select * from usuarios";
 		
 		//select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id order by u.nombre
-
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		while (resultSet.next()) {
 			Usuario usuario = toUsuario(resultSet);
 			usuarios.add(usuario);
 		}
-
 		return usuarios;
-
 	}
 	
 	public void insert(Usuario usu) throws SQLException {
@@ -45,18 +41,20 @@ public class usuarioDAO {
 	
 	public void delete(Usuario usu) throws SQLException{
 		//borra un usuario
+		//creo que para este caso de uso de base de datos, no hace falta borrarlo al usuario, sino que en el select 
+		//traiga los que tienen tiempo/costo mayor al min de tiempo y costo
+		//Solo lo borrabamos del anterior para que no los muestre en el listado
 	}
 	
 	
 	//este metodo se encarga de llamar al constructor con los resultados de la consulta
 	public Usuario toUsuario(ResultSet resultSet) throws SQLException {
+		Integer id = resultSet.getInt("id");
 		String nombre = resultSet.getString("nombre");
 		Double presupuesto = resultSet.getDouble("presupuesto");
 		Double tiempo = resultSet.getDouble("tiempo");
 		Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
-
-		return new Usuario(nombre, presupuesto, tiempo,tipo_atraccion_id);
-
+		return new Usuario(id, nombre, presupuesto, tiempo,tipo_atraccion_id);
 	}
 
 }

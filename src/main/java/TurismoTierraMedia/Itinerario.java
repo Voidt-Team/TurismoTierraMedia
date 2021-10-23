@@ -16,7 +16,4 @@ public class Itinerario {
 	public String toString() {
 		return "Itinerario [id=" + id + "]";
 	}
-	
-	
-	
 }
