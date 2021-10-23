@@ -10,7 +10,7 @@ import java.util.List;
 import TurismoTierraMedia.db.ConnectionProvider;
 import TurismoTierraMedia.Usuario;
 
-public class usuarioDAO {
+public class UsuarioDAO {
 
 	// este metodo devuelve una lista con todos los usuarios y sus tipo de atraccion...
 	public List<Usuario> findAll() throws SQLException {
