@@ -28,6 +28,9 @@ public class AtraccionDAO {
 			return atracciones;
 		}
 		
+		//lista todas las atracciones sugeridas para el usuario...
+		//select * from usuario  u join (SELECT * from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id) e where u.tipo_atraccion_id=e.tipo_atraccion_id and e.costo<u.presupuesto and e.tiempo<u.tiempo and u.id=?
+		
 		//este metodo se encarga de llamar al constructor con los resultados de la consulta
 		public Atraccion toAtraccion(ResultSet resultSet) throws SQLException {
 			Integer id = resultSet.getInt("id");
