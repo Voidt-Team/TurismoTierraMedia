@@ -12,18 +12,12 @@ import TurismoTierraMedia.Usuario;
 
 public class usuarioDAO {
 
-	// este metodo devuelve una lista con todos los usuarios...
+	// este metodo devuelve una lista con todos los usuarios y sus tipo de atraccion...
 	public List<Usuario> findAll() throws SQLException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		// formular mejor la consulta para que traiga el nombre del tipo de atraccion y
-		// no el id...
-		String query = "select * from usuarios";
-
-		// select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion
-		// preferida' from usuario u inner join tipo_de_atraccion t where
-		// u.tipo_atraccion_id=t.id order by u.nombre
+		String query = "select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id order by u.nombre";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -34,6 +28,7 @@ public class usuarioDAO {
 		return usuarios;
 	}
 
+	
 	public void insert(Usuario usu) throws SQLException {
 		// metodo no utilizable...
 	}
@@ -57,12 +52,10 @@ public class usuarioDAO {
 		String nombre = resultSet.getString("nombre");
 		Double presupuesto = resultSet.getDouble("presupuesto");
 		Double tiempo = resultSet.getDouble("tiempo");
-		Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
-		Double latitud = resultSet.getDouble("latitud");
-		Double longitud = resultSet.getDouble("longitud");
-		String atraccion_preferida = resultSet.getString("nombre");// aca seria el nombre de atraccion resultado del
-																	// join
-		return new Usuario(id, nombre, presupuesto, tiempo, tipo_atraccion_id, latitud, longitud, atraccion_preferida);
+		Double latitud = resultSet.getDouble("latitud");//se consulto con roberto si esto es necesario
+		Double longitud = resultSet.getDouble("longitud");//se consulto con roberto si esto es necesario
+		String atraccion_preferida = resultSet.getString("tipo atraccion preferida");
+		return new Usuario(id, nombre, presupuesto, tiempo, latitud, longitud, atraccion_preferida);
 	}
 
 }

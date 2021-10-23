@@ -7,22 +7,19 @@ public class Usuario {
 	private String nombre;
 	private Double presupuesto;
 	private Double tiempo;
-	private Integer idTipoAtraccion;
 	private Integer idItinerario;
 	private Double latitud;
 	private Double longitud;
 	private String atraccion_preferida;
 
-	// este constructor no usa el campo id porque es un atributo que se autogenera
-	// en la base de datos...
-	public Usuario(Integer id, String nombre, Double presupuesto, Double tiempo, Integer idTipoAtraccion,
+
+	public Usuario(Integer id, String nombre, Double presupuesto, Double tiempo,
 			Double latitud, Double longitud, String atraccion_preferida) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempo = tiempo;
-		this.idTipoAtraccion = idTipoAtraccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.atraccion_preferida = atraccion_preferida;
@@ -37,9 +34,6 @@ public class Usuario {
 		return nombre;
 	}
 
-	protected void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 
 	protected double getPresupuesto() {
 		return presupuesto;
@@ -55,14 +49,6 @@ public class Usuario {
 
 	protected void setTiempo(double tiempo) {
 		this.tiempo = tiempo;
-	}
-
-	protected Integer getIdTipoAtraccion() {
-		return idTipoAtraccion;
-	}
-
-	protected void setIdTipoAtraccion(Integer idTipoAtraccion) {
-		this.idTipoAtraccion = idTipoAtraccion;
 	}
 
 	protected Integer getIdItinerario() {
@@ -88,6 +74,6 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", presupuesto=" + presupuesto + ", tiempo=" + tiempo
-				+ ", idTipoAtraccion=" + idTipoAtraccion + ", idItinerario=" + idItinerario + "]";
+				+ ", idTipoAtraccion=" + ", idItinerario=" + idItinerario + "]";
 	}
 }
