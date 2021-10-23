@@ -241,9 +241,9 @@ public class Sugeridor {
 	//------------------------------Metodo para cuando ya no se puede comprar mas--------------------------
 	public static void borrarUsuario(Usuario usuario, int opcion, List<Usuario> listaUsuarios) {
 		//System.out.println("No puedes realizar compras!");
-		Itinerario.generarArchivoUsuario(usuario);
+		ItinerarioViejo.generarArchivoUsuario(usuario);
 		opcion = 99999;
-		Itinerario.mostrarItinerario(usuario);
+		ItinerarioViejo.mostrarItinerario(usuario);
 		listaUsuarios.remove(usuario);
 		TurismoTierraMedia.consola();
 	}

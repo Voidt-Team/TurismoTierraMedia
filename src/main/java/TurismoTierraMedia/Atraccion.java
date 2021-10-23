@@ -3,6 +3,7 @@ package TurismoTierraMedia;
 
 public class Atraccion {
 
+	private Integer id;
 	private String nombre;
 	private Double costo;
 	private Double tiempo;
@@ -46,6 +47,16 @@ public class Atraccion {
 		this.cupo = cupo;
 	}
 
+	protected Integer getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Atraccion [id=" + id + ", nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo="
+				+ cupo + ", tipo_atraccion_id=" + tipo_atraccion_id + "]";
+	}
 	
 	
+
 }

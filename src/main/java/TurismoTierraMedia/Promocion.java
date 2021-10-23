@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Promocion {
 	
+	private Integer id;
 	protected String nombre;
 	protected Integer absoluta; 
 	protected Integer axb;
@@ -16,10 +17,35 @@ public class Promocion {
 		this.porcentual = porcentual;
 	}
 
+	
+	
+	protected Integer getId() {
+		return id;
+	}
+
+
 	public String getNombre() { 
 		return nombre;
 	}
 	
+	
+	//devuelve el precio final de la promo...
+	protected Integer getAbsoluta() {
+		return absoluta;
+	}
+
+	//devuelve el id de la atraccion extra...
+	protected Integer getAxb() {
+		return axb;
+	}
+
+
+	//porcentaje de descuento a aplicar ...
+	protected Double getPorcentual() {
+		return porcentual;
+	}
+
+
 	//Metodos implementados en las subclases
 	public String ImprimirBonus() {
 
@@ -36,5 +62,6 @@ public class Promocion {
 	public int tipoPromocion() {
 		return 1; 
 	}
+	
 	
 }
