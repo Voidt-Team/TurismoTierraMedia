@@ -29,9 +29,26 @@ public class AtraccionDAO {
 		}
 		
 		//lista todas las atracciones sugeridas para el usuario...
-		//select * from usuario  u join (SELECT * from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id) e where u.tipo_atraccion_id=e.tipo_atraccion_id and e.costo<u.presupuesto and e.tiempo<u.tiempo and u.id=?
+		public List<Atraccion> findbyid(Integer id) throws SQLException {
+			List<Atraccion> atracciones = new ArrayList<Atraccion>();
+			Connection connection = ConnectionProvider.getConnection();
+			
+			String query = "select * from usuario  u join (SELECT * from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id) e where u.tipo_atraccion_id=e.tipo_atraccion_id and e.costo<u.presupuesto and e.tiempo<u.tiempo and u.id=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Atraccion atraccion = toAtraccion(resultSet);
+				atracciones.add(atraccion);
+			}
+			return atracciones;
+		}
 		
-		//este metodo se encarga de llamar al constructor con los resultados de la consulta
+
+		
+		//este metodo se encarga de crear un objeto con los resultados de la consulta
 		public Atraccion toAtraccion(ResultSet resultSet) throws SQLException {
 			Integer id = resultSet.getInt("id");
 			String nombre = resultSet.getString("nombre");
