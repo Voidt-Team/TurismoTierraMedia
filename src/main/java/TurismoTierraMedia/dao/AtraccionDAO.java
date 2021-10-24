@@ -10,6 +10,7 @@ import java.util.List;
 import TurismoTierraMedia.Atraccion;
 import TurismoTierraMedia.db.ConnectionProvider;
 
+
 public class AtraccionDAO {
 	
 	//este metodo devuelve una lista con todas las atracciones que tienen cupo...
@@ -28,8 +29,8 @@ public class AtraccionDAO {
 			return atracciones;
 		}
 		
-		//lista todas las atracciones sugeridas para el usuario...
-		public List<Atraccion> findbyid(Integer id) throws SQLException {
+		//devuelve una lista con todas las atracciones sugeridas para el usuario...
+		public List<Atraccion> findbyidUser(Integer id) throws SQLException {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
 			
@@ -44,6 +45,26 @@ public class AtraccionDAO {
 				atracciones.add(atraccion);
 			}
 			return atracciones;
+		}
+		
+		//devuelve la atraccion que corresponde al id pasado
+		public Atraccion findById(Integer id) throws SQLException {
+			Atraccion atraccion = null;
+
+			Connection connection = ConnectionProvider.getConnection();
+
+			String query = "SELECT a.id,a.nombre,a.costo,a.tiempo,a.cupo,ta.nombre as \"tipo_atraccion\" from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id where a.id=?";
+
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				atraccion = toAtraccion(resultSet);
+			}
+
+			return atraccion;
 		}
 		
 
