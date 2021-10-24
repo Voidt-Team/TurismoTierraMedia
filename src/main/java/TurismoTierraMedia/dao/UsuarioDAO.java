@@ -76,10 +76,8 @@ public class UsuarioDAO {
 		String nombre = resultSet.getString("nombre");
 		Double presupuesto = resultSet.getDouble("presupuesto");
 		Double tiempo = resultSet.getDouble("tiempo");
-		Double latitud = resultSet.getDouble("latitud");//se consulto con roberto si esto es necesario
-		Double longitud = resultSet.getDouble("longitud");//se consulto con roberto si esto es necesario
 		String atraccion_preferida = resultSet.getString("tipo atraccion preferida");
-		return new Usuario(id, nombre, presupuesto, tiempo, latitud, longitud, atraccion_preferida);
+		return new Usuario(id, nombre, presupuesto, tiempo, atraccion_preferida);
 	}
 
 }

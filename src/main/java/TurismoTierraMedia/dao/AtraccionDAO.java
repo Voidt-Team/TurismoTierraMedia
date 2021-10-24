@@ -39,10 +39,9 @@ public class AtraccionDAO {
 			Double tiempo = resultSet.getDouble("tiempo");
 			Integer cupo = resultSet.getInt("cupo");
 			String tipo_atraccion= resultSet.getString("tipo_atraccion");
-			Double latitud = resultSet.getDouble("latitud");
-			Double longitud = resultSet.getDouble("longitud");
 
-			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion, latitud, longitud);
+
+			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion);
 		}
 
 }
