@@ -10,6 +10,7 @@ import TurismoTierraMedia.Atraccion;
 import TurismoTierraMedia.Promocion;
 import TurismoTierraMedia.db.ConnectionProvider;
 
+
 public class PromocionDAO {
 	// este metodo devuelve una lista con todos los usuarios...
 	public List<Promocion> findAll() throws SQLException {
@@ -40,18 +41,24 @@ public class PromocionDAO {
 	}
 
 	// Esto deberia funcionar para traer las atracciones de una promo
-	public List<Atraccion> findAllConJoin() throws SQLException {
+	public List<Atraccion> findAllConJoin(integer id) throws SQLException {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
+		
 		//no recuerdo si se puede hacer este tipo de joins jaja
 		//esto deberia traer las atracciones de una promocion
-		String query = "SELECT A.* FROM atraccion A INNER JOIN  promocion_tiene_atraccion PA INNER JOIN promocion P ON PA.promocion_id = P.id and A.id = PA.atraccion_id";
+		
+		//esta consulta trae la lista de atracciones de una promo buscada por id...
+		//solo faltaria un join que me devuelva el nombre del tipo de atraccion... pero esa bien la idea
+		String query = "SELECT A.* FROM atraccion A INNER JOIN  promocion_tiene_atraccion PA INNER JOIN promocion P ON PA.promocion_id = P.id and A.id = PA.atraccion_id and P.id=?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		while (resultSet.next()) {
-			Atraccion atraccion = toAtraccionesPromo(resultSet);
+			Atraccion atraccion = toAtraccionesPromo(resultSet);//aca creo yo que se podria llamar a atraccionDAO y usar su toAtraccion...
 			atracciones.add(atraccion);
 		}
 		return atracciones;
@@ -66,9 +73,8 @@ public class PromocionDAO {
 		Double costo = resultSet.getDouble("costo");
 		Double tiempo = resultSet.getDouble("tiempo");
 		Integer cupo = resultSet.getInt("cupo");
-		Integer tipo_atraccion_id = resultSet.getInt("tipo_atraccion_id");
-		Double latitud = resultSet.getDouble("latitud");
-		Double longitud = resultSet.getDouble("longitud");
-		return new Atraccion(id, nombre, costo, tiempo, cupo, tipo_atraccion_id, latitud, longitud);
+		String tipo_atraccion = resultSet.getString("tipo_atraccion");//ojo aca, el constructor recibe un string con el nombre
+
+		return new Atraccion(id, nombre, costo, tiempo, cupo, tipo_atraccion);
 	}
 }
