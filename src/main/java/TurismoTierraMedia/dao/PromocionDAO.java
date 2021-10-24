@@ -54,15 +54,13 @@ public class PromocionDAO {
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		while (resultSet.next()) {
-			Atraccion atraccion = toAtraccionesPromo(resultSet);//aca creo yo que se podria llamar a atraccionDAO y usar su toAtraccion...
+			Atraccion atraccion = toAtraccionesPromo(resultSet);
 			atracciones.add(atraccion);
 		}
 		return atracciones;
 	}
 
-	// este metodo se encarga de llamar al constructor con los resultados de la
-	// consulta
-
+	// este metodo se encarga de llamar al constructor con los resultados de la consulta
 	public Atraccion toAtraccionesPromo(ResultSet resultSet) throws SQLException {
 		Integer id = resultSet.getInt("id");
 		String nombre = resultSet.getString("nombre");
