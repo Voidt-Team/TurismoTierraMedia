@@ -2,13 +2,14 @@ package TurismoTierraMedia;
 
 import java.util.List;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Scanner;
 import TurismoTierraMedia.Usuario;
 import TurismoTierraMedia.dao.UsuarioDAO;
 
 public class App {
-	public static void consola() { 
+	public static void consola() throws SQLException { 
 		UsuarioDAO usuarios = new UsuarioDAO();
 		List<Usuario> lusuarios = usuarios.findAll();
 		

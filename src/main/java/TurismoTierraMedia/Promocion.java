@@ -8,7 +8,10 @@ public class Promocion {
 	protected Integer absoluta; 
 	protected Integer axb;
 	protected Double porcentual;
+	private List<Atraccion> lista_Atracciones;//no se si va esto
 	
+	
+
 	public Promocion(Integer id, String nombre, Integer absoluta, Integer axb, Double porcentual) {
 		super();
 		this.id = id;
@@ -16,6 +19,18 @@ public class Promocion {
 		this.absoluta = absoluta;
 		this.axb = axb;
 		this.porcentual = porcentual;
+	}
+
+	//constructor por si usamos lista de atracciones
+	public Promocion(Integer id, String nombre, Integer absoluta, Integer axb, Double porcentual,
+			List<Atraccion> lista_Atracciones) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.absoluta = absoluta;
+		this.axb = axb;
+		this.porcentual = porcentual;
+		this.lista_Atracciones = lista_Atracciones;
 	}
 
 	protected Integer getId() {
