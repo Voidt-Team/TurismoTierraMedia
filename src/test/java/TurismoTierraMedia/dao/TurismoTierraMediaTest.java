@@ -1,4 +1,4 @@
-package turismo_tierra_media;
+package TurismoTierraMedia.dao;
 
 import static org.junit.Assert.*;
 

@@ -33,7 +33,7 @@ public class AtraccionDAO {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
 			
-			String query = "select * from usuario  u join (SELECT * from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id) e where u.tipo_atraccion_id=e.tipo_atraccion_id and e.costo<u.presupuesto and e.tiempo<u.tiempo and u.id=?";
+			String query = "select e.id,e.nombre,e.costo,e.tiempo,e.cupo,e.tipoAtraccion from usuario  u join (SELECT a.*,ta.id,ta.nombre as \"tipoAtraccion\" from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id) e where u.tipo_atraccion_id=e.tipo_atraccion_id and e.costo<u.presupuesto and e.tiempo<u.tiempo and u.id=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);
 
