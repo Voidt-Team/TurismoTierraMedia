@@ -40,17 +40,13 @@ public class PromocionDAO {
 		return new Promocion(id, nombre, absoluta, axb, porcentual);
 	}
 
-	// Esto deberia funcionar para traer las atracciones de una promo
-	public List<Atraccion> findAllConJoin(integer id) throws SQLException {
+	// devuelve una lista con las atracciones que contiene una promocion solicitada
+	public List<Atraccion> findAllAttractionsByPromoId (Integer id) throws SQLException {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
 		
-		//no recuerdo si se puede hacer este tipo de joins jaja
-		//esto deberia traer las atracciones de una promocion
-		
 		//esta consulta trae la lista de atracciones de una promo buscada por id...
-		//solo faltaria un join que me devuelva el nombre del tipo de atraccion... pero esa bien la idea
-		String query = "SELECT A.* FROM atraccion A INNER JOIN  promocion_tiene_atraccion PA INNER JOIN promocion P ON PA.promocion_id = P.id and A.id = PA.atraccion_id and P.id=?";
+		String query = "SELECT z.id,z.nombre,z.costo,z.tiempo,z.cupo,z.TipoAtraccion FROM (select A.*,ta.nombre as \"TipoAtraccion\" from atraccion A join tipo_de_atraccion ta on A.tipo_atraccion_id=ta.id) z INNER JOIN  promocion_tiene_atraccion PA INNER JOIN promocion P ON PA.promocion_id = P.id and z.id = PA.atraccion_id and P.id=?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
@@ -66,14 +62,14 @@ public class PromocionDAO {
 
 	// este metodo se encarga de llamar al constructor con los resultados de la
 	// consulta
-	// No se si esto este bien en realidad
+
 	public Atraccion toAtraccionesPromo(ResultSet resultSet) throws SQLException {
 		Integer id = resultSet.getInt("id");
 		String nombre = resultSet.getString("nombre");
 		Double costo = resultSet.getDouble("costo");
 		Double tiempo = resultSet.getDouble("tiempo");
 		Integer cupo = resultSet.getInt("cupo");
-		String tipo_atraccion = resultSet.getString("tipo_atraccion");//ojo aca, el constructor recibe un string con el nombre
+		String tipo_atraccion = resultSet.getString("tipo_atraccion");
 
 		return new Atraccion(id, nombre, costo, tiempo, cupo, tipo_atraccion);
 	}
