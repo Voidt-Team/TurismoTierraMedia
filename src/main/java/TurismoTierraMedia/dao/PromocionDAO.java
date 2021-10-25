@@ -47,7 +47,7 @@ public class PromocionDAO {
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		while (resultSet.next()) {
-			Atraccion atraccion = atraccionDAO.toAtraccion(resultSet);
+			Atraccion atraccion = atraccionDAO.toAtraccion(resultSet);//devuelve una atraccion...
 			//Atraccion atraccion = toAtraccionesPromo(resultSet);
 			atracciones.add(atraccion);
 		}
@@ -59,6 +59,7 @@ public class PromocionDAO {
 		public Promocion toPromocion(ResultSet resultSet) throws SQLException {
 			List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 			AtraccionDAO atraccionExtraDAO = new AtraccionDAO();
+			String herencia;
 			
 			Integer id = resultSet.getInt("id");
 			String nombre = resultSet.getString("nombre");
@@ -67,7 +68,8 @@ public class PromocionDAO {
 			
 			//la promo si es axb en el objeto necesitamos que nos guarde la atraccion
 			//entonces promocion en su campo axb va a ser de tipo Atraccion
-			//al igual que lista_atracciones con finbyid obtengo mi atraccion
+			//con finbyid obtengo mi atraccion y le paso por parametro el id 
+			//que traigo de la base de datos
 			Atraccion extra = atraccionExtraDAO.findById(axb);
 			
 			Double porcentual = resultSet.getDouble("porcentual");
