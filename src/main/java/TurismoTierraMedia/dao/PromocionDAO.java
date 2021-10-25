@@ -13,7 +13,7 @@ import TurismoTierraMedia.db.ConnectionProvider;
 public class PromocionDAO {
 	
 	// este metodo devuelve una lista con todas las promociones
-	public List<Promocion> findAll() throws SQLException {
+	public List<Promocion> findAllbyIdUser() throws SQLException {
 		List<Promocion> promociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
@@ -35,9 +35,6 @@ public class PromocionDAO {
 		AtraccionDAO atraccionDAO = new AtraccionDAO();
 		Connection connection = ConnectionProvider.getConnection();
 
-
-		//String query = "SELECT  A.* FROM promocion P INNER JOIN  promocion_tiene_atraccion PA ON P.id = PA.promocion_id INNER JOIN atraccion A ON PA.atraccion_id = A.id WHERE P.id = ? ORDER BY id";
-		
 		//esta consulta trae la lista de atracciones de una promo buscada por id...
 		String query = "SELECT z.id,z.nombre,z.costo,z.tiempo,z.cupo,z.TipoAtraccion FROM (select A.*,ta.nombre as \"TipoAtraccion\" from atraccion A join tipo_de_atraccion ta on A.tipo_atraccion_id=ta.id) z INNER JOIN  promocion_tiene_atraccion PA INNER JOIN promocion P ON PA.promocion_id = P.id and z.id = PA.atraccion_id and P.id=?";
 
@@ -54,12 +51,11 @@ public class PromocionDAO {
 		return atracciones;
 	}
 
-	// este metodo se encarga de llamar al constructor con los resultados de la
-		// consulta
+	// este metodo se encarga de llamar al constructor con los resultados de la consulta
 		public Promocion toPromocion(ResultSet resultSet) throws SQLException {
 			List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 			AtraccionDAO atraccionExtraDAO = new AtraccionDAO();
-			String herencia;
+
 			
 			Integer id = resultSet.getInt("id");
 			String nombre = resultSet.getString("nombre");
@@ -78,6 +74,7 @@ public class PromocionDAO {
 			// atracciones de la promo que se esta construyendo
 			lista_atracciones = findAllAttractionsByPromoId(id);
 			return new Promocion(id, nombre, absoluta, extra, porcentual, lista_atracciones);
+		
 		}
 		
 }

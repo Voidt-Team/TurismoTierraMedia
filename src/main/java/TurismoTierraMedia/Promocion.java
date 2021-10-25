@@ -23,8 +23,6 @@ public class Promocion {
 		this.lista_atracciones = lista_atracciones;
 	}
 
-
-
 	protected Integer getId() {
 		return id;
 	}
@@ -38,11 +36,13 @@ public class Promocion {
 		return absoluta;
 	}
 
-	//devuelve el id de la atraccion extra...
-	protected Integer getAxb() {
+	protected Atraccion getAxb() {
 		return axb;
 	}
 
+	protected void setAxb(Atraccion axb) {
+		this.axb = axb;
+	}
 
 	//porcentaje de descuento a aplicar ...
 	protected Double getPorcentual() {

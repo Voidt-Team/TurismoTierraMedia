@@ -12,12 +12,12 @@ import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
 
-	// este metodo devuelve una lista con todos los usuarios y sus tipo de atraccion con plata y tiempo...
+	// este metodo devuelve una lista con todos los usuarios que tienen presupuesto y tiempo para hacer atracciones...
 	public List<Usuario> findAll() throws SQLException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id order by u.nombre";
+		String query = "select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id and u.tiempo>=(select min(tiempo) from atraccion) and u.presupuesto>=(select min(costo) from atraccion) order by u.nombre";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
