@@ -8,7 +8,7 @@ public class Promocion {
 	protected Integer absoluta; 
 	protected Integer axb;
 	protected Double porcentual;
-	private List<Atraccion> lista_Atracciones;//no se si va esto
+	private List<Atraccion> lista_atracciones;//no se si va esto //Siii aca deberia ir!!!
 	
 	
 
@@ -23,14 +23,14 @@ public class Promocion {
 
 	//constructor por si usamos lista de atracciones
 	public Promocion(Integer id, String nombre, Integer absoluta, Integer axb, Double porcentual,
-			List<Atraccion> lista_Atracciones) {
+			List<Atraccion> lista_atracciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.absoluta = absoluta;
 		this.axb = axb;
 		this.porcentual = porcentual;
-		this.lista_Atracciones = lista_Atracciones;
+		this.lista_atracciones = lista_atracciones;
 	}
 
 	protected Integer getId() {
@@ -88,16 +88,14 @@ public class Promocion {
 		}
 		if(getAxb()>0) {
 			double costo = 0;
-			//ver como traer los precios de las atracciones de una promocion
-			for(Atraccion atraccion : this.atracciones) {
+			for(Atraccion atraccion : this.lista_atracciones) {
 			   costo += atraccion.getCosto();
 			}
 			return costo;
 		}
 		if(getPorcentual()>0) {
 			double costo = 0;
-			//ver como traer los precios de las atracciones de una promocion
-		    for(Atraccion atraccion : this.atracciones) {
+		    for(Atraccion atraccion : this.lista_atracciones) {
 		    	costo += atraccion.getCosto();
 		    }
 		    costo = costo - (costo * this.getPorcentual());
@@ -106,17 +104,15 @@ public class Promocion {
 	}
 
 	public double tiempoPromocion() {
-		if(getAbsoluta()>0 || getPorcentual()>0) {
-			double horas = 0;
-			//ver como traer el tiempo de las atracciones de una promocion
-		    for(Atraccion atraccion : this.atracciones) {
+		double horas = 0;
+		if(getAbsoluta()>0 || getPorcentual()>0) {n
+		    for(Atraccion atraccion : this.lista_atracciones) {
 		    	horas += atraccion.getTiempo();
 		    }
 		    return horas; 
 		}
 		if(getAxb()>0) {
-			double horas = 0;
-			for(Atraccion atraccion : this.atracciones) {
+			for(Atraccion atraccion : this.lista_atracciones) {
 				horas += atraccion.getTiempo();
 			}
 			    return horas;
