@@ -17,7 +17,7 @@ public class PromocionDAO {
 		List<Promocion> promociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "select * from promocion";
+		String query = "SELECT * from usuario u join atraccion a join promocion_tiene_atraccion pa join promocion p WHERE u.tipo_atraccion_id = a.id and p.id = pa.promocion_id and pa.atraccion_id = a.id and u.nombre=\"Bilbo\"";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
