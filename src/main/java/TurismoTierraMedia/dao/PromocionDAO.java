@@ -79,22 +79,5 @@ public class PromocionDAO {
 			lista_atracciones = findAllAttractionsByPromoId(id);
 			return new Promocion(id, nombre, absoluta, extra, porcentual, lista_atracciones);
 		}
-
-	/* si creo una instancia de atraccionDAO, ya tengo a disposicion el metodo toAtraccion que me devuelve 
-	 * una atraccion de un resulset...
-	 * 
-	 * de este modo en promocionDAO quedaria todo lo referido a promocion...
-	 * 
-	// este metodo se encarga de llamar al constructor con los resultados de la
-	// consulta
-	public Atraccion toAtraccionesPromo(ResultSet resultSet) throws SQLException {
-		Integer id = resultSet.getInt("id");
-		String nombre = resultSet.getString("nombre");
-		Double costo = resultSet.getDouble("costo");
-		Double tiempo = resultSet.getDouble("tiempo");
-		Integer cupo = resultSet.getInt("cupo");
-		String tipo_atraccion = resultSet.getString("tipo_atraccion");
-
-		return new Atraccion(id, nombre, costo, tiempo, cupo, tipo_atraccion);
-	}*/
+		
 }
