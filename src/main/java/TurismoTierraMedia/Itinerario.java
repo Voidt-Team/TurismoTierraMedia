@@ -6,16 +6,15 @@ import java.util.List;
 public class Itinerario {
 
 	private Integer id;
-	private List<Atraccion> lista_atracciones; //aca van a ir todas las atracciones compradas
-	private List<Promocion> lista_promociones; // aca van a ir las promos compradas
+	private Atraccion atraccion; 
+	private Promocion promocion;
 	
-	//si genero un constructor con atracciones y otro con promo me da error porque ambos reciben
-	//integer y lista, evidentemente no distingue su tipo de lista...
-	public Itinerario(Integer id, List<Atraccion> lista_atracciones, List<Promocion> lista_promociones) {
+
+	public Itinerario(Integer id, Atraccion atraccion, Promocion promocion) {
 		super();
 		this.id = id;
-		this.lista_atracciones = lista_atracciones;
-		this.lista_promociones = lista_promociones;
+		this.atraccion = atraccion;
+		this.promocion = promocion;
 	}
 
 	protected Integer getId() {

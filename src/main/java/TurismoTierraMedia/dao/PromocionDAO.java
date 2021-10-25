@@ -12,20 +12,22 @@ import TurismoTierraMedia.db.ConnectionProvider;
 
 public class PromocionDAO {
 	
-	// este metodo devuelve una lista con todas las promociones
-	public List<Promocion> findAllbyIdUser() throws SQLException {
-		List<Promocion> promociones = new ArrayList<Promocion>();
+	//devuelve una lista con todas las promociones para el usuario...
+	public List<Promocion> findAllbyIdUser(Integer id) throws SQLException {
+		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT * from usuario u join atraccion a join promocion_tiene_atraccion pa join promocion p WHERE u.tipo_atraccion_id = a.id and p.id = pa.promocion_id and pa.atraccion_id = a.id and u.nombre=\"Bilbo\"";
+		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual from usuario u join atraccion a join promocion_tiene_atraccion pa join promocion p WHERE u.tipo_atraccion_id = a.tipo_atraccion_id and p.id = pa.promocion_id and pa.atraccion_id = a.id and a.cupo>0 and u.nombre=?";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		while (resultSet.next()) {
 			Promocion promocion = toPromocion(resultSet);
-			promociones.add(promocion);
+			lpromociones.add(promocion);
 		}
-		return promociones;
+		return lpromociones;
 	}
 
 	
@@ -45,7 +47,6 @@ public class PromocionDAO {
 
 		while (resultSet.next()) {
 			Atraccion atraccion = atraccionDAO.toAtraccion(resultSet);//devuelve una atraccion...
-			//Atraccion atraccion = toAtraccionesPromo(resultSet);
 			atracciones.add(atraccion);
 		}
 		return atracciones;

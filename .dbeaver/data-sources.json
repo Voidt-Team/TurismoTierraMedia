@@ -11,8 +11,16 @@
 				"database": "C:\\Users\\Sergito\\sergioNoir\\TurismoTierraMedia\\database\\turismo_tierra_media.db",
 				"url": "jdbc:sqlite:C:\\Users\\Sergito\\sergioNoir\\TurismoTierraMedia\\database\\turismo_tierra_media.db",
 				"type": "dev",
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
+			}
+		}
+	},
+	"virtual-models": {
+		"sqlite_jdbc-17ca5b0e70b-159f74bf9f4bd0fb": {
+			"@properties": {
+				"erd.diagram.state": {
+					"serialized": "<diagram version=\"1\" name=\"turismo_tierra_media.db\" time=\"202110252037\"><entities><data-source id=\"sqlite_jdbc-17ca5b0e70b-159f74bf9f4bd0fb\"><entity id=\"1\" name=\"atraccion\" fq-name=\"atraccion\" order=\"0\" x=\"934\" y=\"203\"/><entity id=\"2\" name=\"itineratio\" fq-name=\"itineratio\" order=\"1\" x=\"223\" y=\"295\"/><entity id=\"3\" name=\"itineratio_tiene_atraccion\" fq-name=\"itineratio_tiene_atraccion\" order=\"2\" x=\"460\" y=\"281\"/><entity id=\"4\" name=\"itineratio_tiene_promocion\" fq-name=\"itineratio_tiene_promocion\" order=\"3\" x=\"26\" y=\"470\"/><entity id=\"5\" name=\"promocion\" fq-name=\"promocion\" order=\"4\" x=\"456\" y=\"553\"/><entity id=\"6\" name=\"promocion_tiene_atraccion\" fq-name=\"promocion_tiene_atraccion\" order=\"5\" x=\"1031\" y=\"515\"/><entity id=\"7\" name=\"tipo_de_atraccion\" fq-name=\"tipo_de_atraccion\" order=\"6\" x=\"506\" y=\"76\"/><entity id=\"8\" name=\"usuario\" fq-name=\"usuario\" order=\"7\" x=\"20\" y=\"20\"/></data-source></entities><relations><relation name=\"FK_itineratio_tiene_atraccion_atraccion\" fq-name=\"itineratio_tiene_atraccion.FK_itineratio_tiene_atraccion_atraccion\" type=\"fk\" pk-ref=\"1\" fk-ref=\"3\"/><relation name=\"FK_promocion_tiene_atraccion_atraccion\" fq-name=\"promocion_tiene_atraccion.FK_promocion_tiene_atraccion_atraccion\" type=\"fk\" pk-ref=\"1\" fk-ref=\"6\"/><relation name=\"FK_itineratio_tiene_atraccion_itineratio_2\" fq-name=\"itineratio_tiene_atraccion.FK_itineratio_tiene_atraccion_itineratio_2\" type=\"fk\" pk-ref=\"2\" fk-ref=\"3\"/><relation name=\"FK_itineratio_tiene_promocion_itineratio\" fq-name=\"itineratio_tiene_promocion.FK_itineratio_tiene_promocion_itineratio\" type=\"fk\" pk-ref=\"2\" fk-ref=\"4\"/><relation name=\"FK_usuario_itineratio\" fq-name=\"usuario.FK_usuario_itineratio\" type=\"fk\" pk-ref=\"2\" fk-ref=\"8\"/><relation name=\"FK_itineratio_tiene_promocion_promocion_2\" fq-name=\"itineratio_tiene_promocion.FK_itineratio_tiene_promocion_promocion_2\" type=\"fk\" pk-ref=\"5\" fk-ref=\"4\"/><relation name=\"FK_promocion_tiene_atraccion_promocion_2\" fq-name=\"promocion_tiene_atraccion.FK_promocion_tiene_atraccion_promocion_2\" type=\"fk\" pk-ref=\"5\" fk-ref=\"6\"/><relation name=\"FK_atraccion_tipo_de_atraccion\" fq-name=\"atraccion.FK_atraccion_tipo_de_atraccion\" type=\"fk\" pk-ref=\"7\" fk-ref=\"1\"/><relation name=\"FK_usuario_tipo_de_atraccion_2\" fq-name=\"usuario.FK_usuario_tipo_de_atraccion_2\" type=\"fk\" pk-ref=\"7\" fk-ref=\"8\"/></relations></diagram>"
+				}
 			}
 		}
 	},
