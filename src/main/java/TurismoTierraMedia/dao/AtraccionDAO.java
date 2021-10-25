@@ -13,7 +13,7 @@ import TurismoTierraMedia.db.ConnectionProvider;
 
 public class AtraccionDAO {
 	
-	//este metodo devuelve una lista con todas las atracciones que tienen cupo...
+	//devuelve una lista con todas las atracciones que tienen cupo...
 		public List<Atraccion> findAll() throws SQLException {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
