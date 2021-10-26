@@ -32,25 +32,25 @@ public class Promocion {
 	}
 	
 	//devuelve el precio final de la promo...
-	protected Integer getAbsoluta() {
+	public Integer getAbsoluta() {
 		return absoluta;
 	}
 
 	//Atraccion gratis
-	protected Atraccion getAxb() {
+	public Atraccion getAxb() {
 		return axb;
 	}
 
 	//porcentaje de descuento a aplicar ...
-	protected Double getPorcentual() {
+	public Double getPorcentual() {
 		return porcentual;
 	}
 
-	protected Integer getAxb_id() {
+	public Integer getAxb_id() {
 		return axb_id;
 	}
 
-	protected List<Atraccion> getLista_atracciones() {
+	public List<Atraccion> getLista_atracciones() {
 		return lista_atracciones;
 	}
 

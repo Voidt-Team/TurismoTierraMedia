@@ -6,42 +6,53 @@ import java.util.List;
 public class Itinerario {
 
 	private Integer id;
-	private Atraccion atraccion; 
-	private Promocion promocion;
+	private List<Atraccion> lAtracciones; 
+	private List<Promocion> lPromociones;
 	
-
-	public Itinerario(Integer id, Atraccion atraccion, Promocion promocion) {
+	
+	public Itinerario(Integer id, List<Atraccion> lAtracciones, List<Promocion> lPromociones) {
 		super();
 		this.id = id;
-		this.atraccion = atraccion;
-		this.promocion = promocion;
+		this.lAtracciones = lAtracciones;
+		this.lPromociones = lPromociones;
 	}
 
-	protected Integer getId() {
+
+	public Integer getId() {
 		return id;
 	}
 
-	protected List<Atraccion> getLista_atracciones() {
-		return lista_atracciones;
+	//necesitamos este metodo para poder sincronizar el id con el autogenerado en la base de datos...
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	protected void setLista_atracciones(List<Atraccion> lista_atracciones) {
-		this.lista_atracciones = lista_atracciones;
+
+	public List<Atraccion> getlAtracciones() {
+		return lAtracciones;
 	}
 
-	protected List<Promocion> getLista_promociones() {
-		return lista_promociones;
+
+	public void setlAtracciones(List<Atraccion> lAtracciones) {
+		this.lAtracciones = lAtracciones;
 	}
 
-	protected void setLista_promociones(List<Promocion> lista_promociones) {
-		this.lista_promociones = lista_promociones;
+
+	public List<Promocion> getlPromociones() {
+		return lPromociones;
 	}
+
+
+	public void setlPromociones(List<Promocion> lPromociones) {
+		this.lPromociones = lPromociones;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Itinerario [id=" + id + ", lista_atracciones=" + lista_atracciones + ", lista_promociones="
-				+ lista_promociones + "]";
+		return "Itinerario [id=" + id + ", lAtracciones=" + lAtracciones + ", lPromociones=" + lPromociones + "]";
 	}
+	
 	
 	
 	
