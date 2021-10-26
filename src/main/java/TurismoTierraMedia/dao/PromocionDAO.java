@@ -42,6 +42,7 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
+		//Esta no me esta andando bien
 		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
 				+ "FROM usuario u JOIN atraccion a "
 				+ "JOIN promocion_tiene_atraccion pa "
