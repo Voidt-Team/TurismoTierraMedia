@@ -23,7 +23,7 @@ public class AtraccionDAO {
 			String query = "SELECT A.*, ta.nombre as\"tipo_atraccion\" "
 					+ "FROM atraccion A INNER JOIN usuario U inner join tipo_de_atraccion ta "
 					+ "WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and ta.id = a.tipo_atraccion_id "
-					+ "AND A.costo < U.presupuesto and A.tiempo < U.tiempo and U.id = ?";
+					+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?";
 			
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -46,7 +46,7 @@ public class AtraccionDAO {
 			String query = "SELECT A.*, ta.nombre as tipo_atraccion "
 					+ "FROM atraccion A INNER JOIN usuario U inner join tipo_de_atraccion ta "
 					+ "WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and ta.id = a.tipo_atraccion_id "
-					+ "AND A.costo < U.presupuesto and A.tiempo < U.tiempo and U.id = ?";
+					+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);

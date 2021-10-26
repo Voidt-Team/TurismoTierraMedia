@@ -9,8 +9,6 @@ public class Promocion {
 	protected Atraccion axb;
 	protected Double porcentual;
 	private List<Atraccion> lista_atracciones;
-
-	
 	
 	public Promocion(Integer id, String nombre, Integer absoluta, Atraccion axb, Double porcentual,
 			List<Atraccion> lista_atracciones) {
@@ -51,12 +49,11 @@ public class Promocion {
 		return lista_atracciones;
 	}
 
-
-	
 	//Imprime el Bonus de la promo
 	public String ImprimirBonus() {
-		String descuentoS = "";
-		if(getAbsoluta()!= null) {
+			
+		String descuentoS = "ASDFG ERROR!";
+		if(getAbsoluta()!= 0) {
 			double costo = 0;
 			for(Atraccion atraccion : this.lista_atracciones) {
 		    	costo += atraccion.getCosto();
@@ -64,38 +61,32 @@ public class Promocion {
 			Double descuento = costo - getAbsoluta();
 			descuentoS = descuento.toString();
 			descuentoS = "¡se ahorra " + descuentoS + " monedas!";
-		}
-
-		if(getAxb() != null) {
-			String destinoGratis = getAxb().getNombre();
-			descuentoS = "¡obtiene " + destinoGratis + " gratis!";
-		}
-		
-		if(getPorcentual() != null) {
+		}else if(getPorcentual() != 0) {
 			Double descuento = this.getPorcentual() * 100;
 			descuentoS = descuento.toString();
 			descuentoS = "obtiene un descuento del " + descuentoS + " %";
+		}else{
+			//Este no funca
+			//descuentoS = "¡obtiene " + getAxb().getNombre() + " gratis!";
+			return descuentoS;
 		}
-
 		return descuentoS;
 	}
 	
 	//Retorna el costo de la promocion
 	public double costoPromocion() {
 		double costo = 0;
-		if(getAbsoluta()>0) {
+		if(getAbsoluta()!= 0) {
 			costo  = getAbsoluta();
-		}
-		if(getAxb()!= null) {
+		}else if(getPorcentual()!= 0) {
+			    for(Atraccion atraccion : this.lista_atracciones) {
+			    	costo += atraccion.getCosto();
+			    }
+			    costo = costo - (costo * this.getPorcentual());
+		}else{
 			for(Atraccion atraccion : this.lista_atracciones) {
 			   costo += atraccion.getCosto();
 			}
-		}
-		if(getPorcentual()>0) {
-		    for(Atraccion atraccion : this.lista_atracciones) {
-		    	costo += atraccion.getCosto();
-		    }
-		    costo = costo - (costo * this.getPorcentual());
 		}
 		 return costo;
 	}
@@ -103,17 +94,16 @@ public class Promocion {
 	//Retorna el tiempo que dura la promo
 	public double tiempoPromocion() {
 		double horas = 0;
-		if(getAbsoluta() > 0 || getPorcentual() > 0) {
+		if(getAbsoluta() != 0 || getPorcentual() != 0) {
 		    for(Atraccion atraccion : this.lista_atracciones) {
 		    	horas += atraccion.getTiempo();
 		    }
 		   
-		}
-		if(getAxb()!= null) {
+		}else {
 			for(Atraccion atraccion : this.lista_atracciones) {
 				horas += atraccion.getTiempo();
 			}
-			horas += getAxb().getTiempo();
+			//horas += getAxb().getTiempo();
 		}
 		 return horas; 
 	}

@@ -39,7 +39,7 @@ public class SugeridorViejo {
 				sugerirAtraccionesNoPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
 						atraccNoPreferidas, opcion, listaUsuarios);
 			} else {
-				borrarUsuario(usuario, opcion, listaUsuarios);
+				noMasCompras(usuario, opcion, listaUsuarios);
 			}
 		}
 	}
