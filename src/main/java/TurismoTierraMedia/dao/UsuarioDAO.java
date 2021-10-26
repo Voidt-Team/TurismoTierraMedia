@@ -18,7 +18,13 @@ public class UsuarioDAO {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id and u.tiempo>=(select min(tiempo) from atraccion) and u.presupuesto>=(select min(costo) from atraccion) order by u.id";
+		String query = "SELECT u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' "
+				+ "FROM usuario u INNER JOIN tipo_de_atraccion t "
+				+ "WHERE u.tipo_atraccion_id = t.id "
+				+ "AND u.tiempo >= (select min(tiempo) from atraccion) "
+				+ "AND u.presupuesto >= (select min(costo) from atraccion) "
+				+ "ORDER BY u.id";
+		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		ResultSet resultSet = preparedStatement.executeQuery();
 

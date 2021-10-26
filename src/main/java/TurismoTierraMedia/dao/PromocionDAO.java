@@ -12,12 +12,44 @@ import TurismoTierraMedia.db.ConnectionProvider;
 
 public class PromocionDAO {
 	
-	//devuelve una lista con todas las promociones para el usuario...
-	public List<Promocion> findAllbyIdUser(Integer id) throws SQLException {
+	//Promociones preferidas
+	public List<Promocion> promocionesPreferidas(Integer id) throws SQLException {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual from usuario u join atraccion a join promocion_tiene_atraccion pa join promocion p WHERE u.tipo_atraccion_id = a.tipo_atraccion_id and p.id = pa.promocion_id and pa.atraccion_id = a.id and a.cupo>0 and u.nombre=?";
+		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
+				+ "FROM usuario u JOIN atraccion a "
+				+ "JOIN promocion_tiene_atraccion pa "
+				+ "JOIN promocion p "
+				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id "
+				+ "AND p.id = pa.promocion_id "
+				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?";
+		
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		while (resultSet.next()) {
+			Promocion promocion = toPromocion(resultSet);
+			lpromociones.add(promocion);
+		}
+		return lpromociones;
+	}
+	
+	//Promociones No Preferidas
+	public List<Promocion> promocionesNoPreferidas(Integer id) throws SQLException {
+		List<Promocion> lpromociones = new ArrayList<Promocion>();
+		Connection connection = ConnectionProvider.getConnection();
+
+		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
+				+ "FROM usuario u JOIN atraccion a "
+				+ "JOIN promocion_tiene_atraccion pa "
+				+ "JOIN promocion p "
+				+ "WHERE u.tipo_atraccion_id <> a.tipo_atraccion_id "
+				+ "AND p.id = pa.promocion_id "
+				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?";
+		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
 
@@ -38,7 +70,12 @@ public class PromocionDAO {
 		Connection connection = ConnectionProvider.getConnection();
 
 		//esta consulta trae la lista de atracciones de una promo buscada por id...
-		String query = "SELECT z.id,z.nombre,z.costo,z.tiempo,z.cupo,z.TipoAtraccion FROM (select A.*,ta.nombre as \"TipoAtraccion\" from atraccion A join tipo_de_atraccion ta on A.tipo_atraccion_id=ta.id) z INNER JOIN  promocion_tiene_atraccion PA INNER JOIN promocion P ON PA.promocion_id = P.id and z.id = PA.atraccion_id and P.id=?";
+		String query = "SELECT z.id,z.nombre,z.costo,z.tiempo,z.cupo,z.TipoAtraccion "
+				+ "FROM (select A.*,ta.nombre as \"TipoAtraccion\" "
+				+ "FROM atraccion A join tipo_de_atraccion ta on A.tipo_atraccion_id = ta.id) z "
+				+ "INNER JOIN  promocion_tiene_atraccion PA "
+				+ "INNER JOIN promocion P "
+				+ "ON PA.promocion_id = P.id AND z.id = PA.atraccion_id and P.id=?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);

@@ -49,6 +49,11 @@ public class Promocion {
 		return porcentual;
 	}
 
+	
+
+	protected List<Atraccion> getLista_atracciones() {
+		return lista_atracciones;
+	}
 
 	//Metodos implementados en las subclases
 	public String ImprimirBonus() {
