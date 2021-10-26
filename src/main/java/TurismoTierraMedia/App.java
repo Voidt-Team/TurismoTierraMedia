@@ -60,4 +60,9 @@ public class App {
 					+ " - Tiempo disponible: " + usuario.getTiempo() + " hs.");
 		}
 	}
+	
+	public static void main(String[] args) throws SQLException {
+		consola();
+	}
 }
+
