@@ -17,12 +17,12 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
-				+ "FROM usuario u JOIN atraccion a "
-				+ "JOIN promocion_tiene_atraccion pa "
-				+ "JOIN promocion p "
-				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id "
-				+ "AND p.id = pa.promocion_id "
+		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual \r\n"
+				+ "FROM usuario u JOIN atraccion a \r\n"
+				+ "JOIN promocion_tiene_atraccion pa \r\n"
+				+ "JOIN promocion p \r\n"
+				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id \r\n"
+				+ "AND p.id = pa.promocion_id \r\n"
 				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);

@@ -25,11 +25,6 @@ public class Atraccion {
 	}
 
 
-	public String getTipoDeAtraccion() {
-		return tipo_atraccion;
-	}
-
-
 	public Double getCosto() {
 		return costo;
 	}
@@ -51,13 +46,15 @@ public class Atraccion {
 		return id;
 	}
 
+	public String getTipo_atraccion() {
+		return tipo_atraccion;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Atraccion [id=" + id + ", nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo="
 				+ cupo + ", tipo_atraccion=" + tipo_atraccion + "]";
 	}
 
-	
-
-	
 }

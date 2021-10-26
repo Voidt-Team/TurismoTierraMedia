@@ -14,6 +14,7 @@ import TurismoTierraMedia.db.ConnectionProvider;
 
 public class AtraccionDAO {
 	
+	
 		//Atracciones preferidas
 		public List<Atraccion> atraccionesPreferidas(Integer id) throws SQLException {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
@@ -27,6 +28,7 @@ public class AtraccionDAO {
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);
+
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
@@ -63,16 +65,20 @@ public class AtraccionDAO {
 			Atraccion atraccion = null;
 
 			Connection connection = ConnectionProvider.getConnection();
+
 			String query = "SELECT a.id,a.nombre,a.costo,a.tiempo,a.cupo,ta.nombre as \"tipo_atraccion\" "
 					+ "FROM atraccion a join tipo_de_atraccion ta "
-					+ "ON a.tipo_atraccion_id = ta.id where a.id = ?";
+					+ "ON a.tipo_atraccion_id = ta.id "
+					+ "WHERE a.id = ?";
 
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
+
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
 				atraccion = toAtraccion(resultSet);
 			}
+
 			return atraccion;
 		}
 		
@@ -83,7 +89,7 @@ public class AtraccionDAO {
 			Double costo = resultSet.getDouble("costo");
 			Double tiempo = resultSet.getDouble("tiempo");
 			Integer cupo = resultSet.getInt("cupo");
-			String tipo_atraccion= resultSet.getString("tipo_atraccion");
+			String tipo_atraccion= resultSet.getString("nombre");
 
 			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion);
 		}
