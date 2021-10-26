@@ -17,6 +17,7 @@ public class ItinerarioDAO {
 		//debo generar un registro en itinerario
 		/* insert into en itinerario_tiene_atraccion
 		 */
+              //https://www.sqlitetutorial.net/sqlite-java/insert/
 		
 	} 
 	
