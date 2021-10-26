@@ -102,8 +102,8 @@ public class PromocionDAO {
 			
 			//la promo si es axb en el objeto necesitamos que nos guarde la atraccion
 			//entonces promocion en su campo axb va a ser de tipo Atraccion
-			//con finbyid obtengo mi atraccion y le paso por parametro el id 
-			//que traigo de la base de datos
+			//con finbyid se obtiene la atraccion y se le pasa por parametro el id 
+			//que se trae de la base de datos
 			Atraccion extra = atraccionExtraDAO.findById(axb);
 			
 			Double porcentual = resultSet.getDouble("porcentual");

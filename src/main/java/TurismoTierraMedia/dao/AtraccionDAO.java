@@ -20,10 +20,12 @@ public class AtraccionDAO {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
 			
-			String query = "SELECT A.*, ta.nombre as\"tipo_atraccion\" "
-					+ "FROM atraccion A INNER JOIN usuario U inner join tipo_de_atraccion ta "
-					+ "WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and ta.id = a.tipo_atraccion_id "
-					+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?";
+			String query = "SELECT A.*, TA.nombre as tipo_atraccion "
+					+ "FROM atraccion A INNER JOIN usuario U "
+					+ "INNER JOIN tipo_de_atraccion TA  "
+					+ "WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id\r\n"
+					+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?\r\n"
+					+ "ORDER BY A.costo DESC, A.tiempo DESC";
 			
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -43,10 +45,12 @@ public class AtraccionDAO {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
 			
-			String query = "SELECT A.*, ta.nombre as tipo_atraccion "
-					+ "FROM atraccion A INNER JOIN usuario U inner join tipo_de_atraccion ta "
-					+ "WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and ta.id = a.tipo_atraccion_id "
-					+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?";
+			String query = "SELECT A.*, TA.nombre as tipo_atraccion "
+					+ "FROM atraccion A "
+					+ "INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA  "
+					+ "WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id\r\n"
+					+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?\r\n"
+					+ "ORDER BY A.costo DESC, A.tiempo DESC";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);
@@ -72,6 +76,7 @@ public class AtraccionDAO {
 					+ "WHERE a.id = ?";
 
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {

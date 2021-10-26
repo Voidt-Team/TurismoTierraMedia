@@ -46,7 +46,6 @@ public class Promocion {
 		return porcentual;
 	}
 
-	
 	protected Integer getAxb_id() {
 		return axb_id;
 	}
@@ -57,8 +56,7 @@ public class Promocion {
 
 	//Imprime el Bonus de la promo
 	public String ImprimirBonus() {
-			
-		String descuentoS = "ASDFG ERROR!";
+		String descuentoS = "";
 		if(getAbsoluta()!= 0) {
 			double costo = 0;
 			for(Atraccion atraccion : this.lista_atracciones) {
@@ -72,7 +70,6 @@ public class Promocion {
 			descuentoS = descuento.toString();
 			descuentoS = "obtiene un descuento del " + descuentoS + " %";
 		}else if(getAxb_id() !=0){
-			//Este no funca
 			descuentoS = "¡obtiene " + getAxb().getNombre() + " gratis!";
 		}
 		return descuentoS;
@@ -112,5 +109,4 @@ public class Promocion {
 		}
 		 return horas; 
 	}
-
 }
