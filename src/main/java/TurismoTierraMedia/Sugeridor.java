@@ -11,7 +11,7 @@ public class Sugeridor {
 
 	public static void sugerir(Usuario usuario, List<Usuario> lusuarios) throws SQLException {
 		AtraccionDAO atracciones = new AtraccionDAO();
-		List<Atraccion> atraccionesPreferidas = atracciones.atraccionesPreferidas(usuario.getId());
+		List<Atraccion> atraccionesPreferidas = atracciones.findbyidUser(usuario.getId());
 		sugerirAtracciones(atraccionesPreferidas, usuario, true);
 		
 		

@@ -20,7 +20,7 @@ public class AtraccionDAO {
 			List<Atraccion> atracciones = new ArrayList<Atraccion>();
 			Connection connection = ConnectionProvider.getConnection();
 			
-			String query = "select e.id,e.nombre,e.costo,e.tiempo,e.cupo,e.tipoAtraccion from usuario  u join (SELECT a.*,ta.id,ta.nombre as \"tipoAtraccion\" from atraccion a join tipo_de_atraccion ta on a.tipo_atraccion_id=ta.id) e where u.tipo_atraccion_id=e.tipo_atraccion_id and e.costo<u.presupuesto and e.tiempo<u.tiempo and u.id=?";
+			String query = "SELECT A.*, ta.nombre as\"tipo_atraccion\" FROM atraccion A INNER JOIN usuario U inner join tipo_de_atraccion ta WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and ta.id=a.tipo_atraccion_id AND A.costo<U.presupuesto and A.tiempo<U.tiempo and U.id=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);
 
@@ -59,29 +59,31 @@ public class AtraccionDAO {
 			Double costo = resultSet.getDouble("costo");
 			Double tiempo = resultSet.getDouble("tiempo");
 			Integer cupo = resultSet.getInt("cupo");
-			String tipo_atraccion= resultSet.getString("tipo_atraccion_id");
+			String tipo_atraccion= resultSet.getString("tipo_atraccion");
 
 			return new Atraccion(id, nombre, costo, tiempo,cupo, tipo_atraccion);
 		}
 		
-		//Busca las atracciones preferidas
-		public List<Atraccion> atraccionesPreferidas(Integer id) throws SQLException {
-			List<Atraccion> atraccionesPreferidas = new ArrayList<Atraccion>();
-			Connection connection = ConnectionProvider.getConnection();
-
-			String query = "SELECT A.* FROM atraccion A INNER JOIN usuario U WHERE A.tipo_atraccion_id = U.tipo_atraccion_id AND U.id = ?";
-
-			PreparedStatement preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, id);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
-				Atraccion atraccion = toAtraccion(resultSet);
-				atraccionesPreferidas.add(atraccion);
-			}
-
-			return atraccionesPreferidas;
-			
-		}
+		/*
+		 * //Busca las atracciones preferidas public List<Atraccion>
+		 * atraccionesPreferidas(Integer id) throws SQLException { List<Atraccion>
+		 * atraccionesPreferidas = new ArrayList<Atraccion>(); Connection connection =
+		 * ConnectionProvider.getConnection();
+		 * 
+		 * String query =
+		 * "SELECT A.* FROM atraccion A INNER JOIN usuario U WHERE A.tipo_atraccion_id = U.tipo_atraccion_id AND U.id = ?"
+		 * ;
+		 * 
+		 * PreparedStatement preparedStatement = connection.prepareStatement(query);
+		 * preparedStatement.setInt(1, id); ResultSet resultSet =
+		 * preparedStatement.executeQuery();
+		 * 
+		 * if (resultSet.next()) { Atraccion atraccion = toAtraccion(resultSet);
+		 * atraccionesPreferidas.add(atraccion); }
+		 * 
+		 * return atraccionesPreferidas;
+		 * 
+		 * }
+		 */
 
 }
