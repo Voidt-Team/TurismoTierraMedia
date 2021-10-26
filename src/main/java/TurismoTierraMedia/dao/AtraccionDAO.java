@@ -72,7 +72,6 @@ public class AtraccionDAO {
 					+ "WHERE a.id = ?";
 
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
-
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {

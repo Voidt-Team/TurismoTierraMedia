@@ -8,16 +8,18 @@ public class Promocion {
 	protected Integer absoluta; 
 	protected Atraccion axb;
 	protected Double porcentual;
+	protected Integer axb_id;
 	private List<Atraccion> lista_atracciones;
 	
 	public Promocion(Integer id, String nombre, Integer absoluta, Atraccion axb, Double porcentual,
-			List<Atraccion> lista_atracciones) {
+			Integer axb_id, List<Atraccion> lista_atracciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.absoluta = absoluta;
 		this.axb = axb;
 		this.porcentual = porcentual;
+		this.axb_id = axb_id;
 		this.lista_atracciones = lista_atracciones;
 	}
 
@@ -45,6 +47,10 @@ public class Promocion {
 	}
 
 	
+	protected Integer getAxb_id() {
+		return axb_id;
+	}
+
 	protected List<Atraccion> getLista_atracciones() {
 		return lista_atracciones;
 	}
@@ -65,10 +71,9 @@ public class Promocion {
 			Double descuento = this.getPorcentual() * 100;
 			descuentoS = descuento.toString();
 			descuentoS = "obtiene un descuento del " + descuentoS + " %";
-		}else{
+		}else if(getAxb_id() !=0){
 			//Este no funca
-			//descuentoS = "¡obtiene " + getAxb().getNombre() + " gratis!";
-			return descuentoS;
+			descuentoS = "¡obtiene " + getAxb().getNombre() + " gratis!";
 		}
 		return descuentoS;
 	}
@@ -83,7 +88,7 @@ public class Promocion {
 			    	costo += atraccion.getCosto();
 			    }
 			    costo = costo - (costo * this.getPorcentual());
-		}else{
+		}else if(getAxb_id() !=0){
 			for(Atraccion atraccion : this.lista_atracciones) {
 			   costo += atraccion.getCosto();
 			}
@@ -99,11 +104,11 @@ public class Promocion {
 		    	horas += atraccion.getTiempo();
 		    }
 		   
-		}else {
+		}else if(getAxb_id() !=0){
 			for(Atraccion atraccion : this.lista_atracciones) {
 				horas += atraccion.getTiempo();
 			}
-			//horas += getAxb().getTiempo();
+			horas += getAxb().getTiempo();
 		}
 		 return horas; 
 	}

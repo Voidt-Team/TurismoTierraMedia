@@ -76,7 +76,7 @@ public class PromocionDAO {
 				+ "FROM atraccion A join tipo_de_atraccion ta on A.tipo_atraccion_id = ta.id) z "
 				+ "INNER JOIN  promocion_tiene_atraccion PA "
 				+ "INNER JOIN promocion P "
-				+ "ON PA.promocion_id = P.id AND z.id = PA.atraccion_id and P.id=?";
+				+ "ON PA.promocion_id = P.id AND z.id = PA.atraccion_id and P.id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
@@ -95,7 +95,6 @@ public class PromocionDAO {
 			List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 			AtraccionDAO atraccionExtraDAO = new AtraccionDAO();
 
-			
 			Integer id = resultSet.getInt("id");
 			String nombre = resultSet.getString("nombre");
 			Integer absoluta = resultSet.getInt("absoluta");
@@ -112,7 +111,7 @@ public class PromocionDAO {
 			// Aca le asignamos el resultado de findAllAttractionsByPromoId a la lista de
 			// atracciones de la promo que se esta construyendo
 			lista_atracciones = findAllAttractionsByPromoId(id);
-			return new Promocion(id, nombre, absoluta, extra, porcentual, lista_atracciones);
+			return new Promocion(id, nombre, absoluta, extra, porcentual,axb, lista_atracciones);
 		
 		}
 		
