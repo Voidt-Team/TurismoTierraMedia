@@ -38,7 +38,7 @@ public class App {
 				System.out.println("\nHas elegido ser: " + lusuarios.get(opcion - 1).getNombre());
 				// El objeto creado se usa para llamar al metodo sugerir
 				
-				//Sugeridor.sugerir(listaUsuarios.get(opcion - 1),listaUsuarios);
+				Sugeridor.sugerir(lusuarios.get(opcion - 1),lusuarios);
 				opcion = 99999;
 			} catch (IndexOutOfBoundsException ex) {
 				System.out

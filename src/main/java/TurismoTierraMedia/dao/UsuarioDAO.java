@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TurismoTierraMedia.db.ConnectionProvider;
+import TurismoTierraMedia.Atraccion;
 import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
@@ -17,7 +18,7 @@ public class UsuarioDAO {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id and u.tiempo>=(select min(tiempo) from atraccion) and u.presupuesto>=(select min(costo) from atraccion) order by u.nombre";
+		String query = "select u.id,u.nombre,u.presupuesto,u.tiempo, t.nombre as 'tipo atraccion preferida' from usuario u inner join tipo_de_atraccion t where u.tipo_atraccion_id=t.id and u.tiempo>=(select min(tiempo) from atraccion) and u.presupuesto>=(select min(costo) from atraccion) order by u.id";
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -48,7 +49,6 @@ public class UsuarioDAO {
 			usuario = toUsuario(resultSet);
 
 		}
-
 		return usuario;
 	}
 
@@ -63,5 +63,7 @@ public class UsuarioDAO {
 		
 		return new Usuario(id, nombre, presupuesto, tiempo, atraccion_preferida);
 	}
+	
+	
 
 }

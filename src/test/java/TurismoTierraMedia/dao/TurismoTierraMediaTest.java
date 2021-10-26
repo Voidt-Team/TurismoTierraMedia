@@ -54,7 +54,7 @@ public class TurismoTierraMediaTest {
 	public void testOrdenarAtraccionesPorCostoHoras() {
 		List<Atraccion> listaCopia;
 		listaCopia = new ArrayList<>(listaAtracciones);
-		Sugeridor.ordenarAtraccionesCostoHoras(listaCopia);
+		SugeridorViejo.ordenarAtraccionesCostoHoras(listaCopia);
 		Assert.assertNotEquals(listaAtracciones, listaCopia);
 		
 	}
@@ -62,7 +62,7 @@ public class TurismoTierraMediaTest {
 	@Test
 	public void actualizarCupoAtraccion() {//recibe una atraccion y le resta 1 a su cupo
 		Atraccion atraccion = listaAtracciones.get(2);
-		Sugeridor.actualizarCupoAtraccion(atraccion);
+		SugeridorViejo.actualizarCupoAtraccion(atraccion);
 		Assert.assertNotEquals(150, atraccion.getCupo());
 		
 	}
