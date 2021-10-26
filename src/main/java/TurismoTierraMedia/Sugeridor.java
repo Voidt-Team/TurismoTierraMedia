@@ -282,7 +282,7 @@ public class Sugeridor {
 		//actualizacion de historial de atracciones y actualizacion de cupo de la atraccion
 		public static void actualizarAtraccion(Usuario usuario, Atraccion atraccion) {
 			System.out.println("\nHas elegido la atraccion: " + atraccion.getNombre());
-			//actualizarPresupuestoTiempoAtraccion(usuario, atraccion);
+			actualizarPresupuestoTiempoAtraccion(usuario, atraccion);
 			//actualizarHistorialAtracciones(usuario, atraccion);
 			//actualizarCupoAtraccion(atraccion);
 		}
@@ -316,11 +316,13 @@ public class Sugeridor {
 //			usuario.setTiempoDisponible(usuario.getTiempoDisponible() - promo.tiempoPromocion());
 //		}
 
+		
+		/* YA DEBERIA ANDAR ESTE METODO... */
 		// Actualizar presupuesto y tiempo del usuario cuando elige atraccion //VER con sql
-//		public static void actualizarPresupuestoTiempoAtraccion(Usuario usuario, Atraccion atraccion) {
-//			usuario.setPresupuesto((int) (usuario.getPresupuesto() - atraccion.getCosto()));
-//			usuario.setTiempoDisponible(usuario.getTiempoDisponible() - atraccion.getTiempo());
-//		}
+		public static void actualizarPresupuestoTiempoAtraccion(Usuario usuario, Atraccion atraccion) {
+			usuario.setPresupuesto((Double) (usuario.getPresupuesto() - atraccion.getCosto()));
+			usuario.setTiempo(usuario.getTiempo() - atraccion.getTiempo());
+		}
 
 		//------------------------------Metodos de Actualizacion de cupos--------------------------
 		// De atracciones de una promocion//VER con sql

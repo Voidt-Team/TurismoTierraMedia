@@ -42,7 +42,7 @@ public class Atraccion {
 		this.cupo = cupo;
 	}
 
-	protected Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 

@@ -8,11 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TurismoTierraMedia.db.ConnectionProvider;
-import TurismoTierraMedia.Atraccion;
 import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
 
+	//Esta consulta actualiza todos los campos actualizable de usuario...
+	public void actualizarUsuario(Usuario usu)throws SQLException {
+		
+		Connection connection = ConnectionProvider.getConnection();
+		
+		String query = "UPDATE usuario set presupuesto=?, tiempo=?, itineratio_id=? where id=?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		
+		preparedStatement.setDouble(1, usu.getPresupuesto());
+		preparedStatement.setDouble(2, usu.getTiempo());
+		preparedStatement.setInt(3, usu.getIdItinerario());
+		preparedStatement.setInt(4, usu.getId());
+		
+		preparedStatement.executeUpdate();
+	}
+	
 	// este metodo devuelve una lista con todos los usuarios que tienen presupuesto y tiempo para hacer atracciones...
 	public List<Usuario> findAll() throws SQLException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();

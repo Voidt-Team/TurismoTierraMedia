@@ -13,7 +13,7 @@ import TurismoTierraMedia.Promocion;
 public class ItinerarioDAO {
 
 	private void insert (Atraccion at) throws SQLException{
-		//aca deberia llamar a toItineraio y pasarle los datos pra generar el objeto
+		//aca deberia llamar a toItineraio y pasarle los datos para generar el objeto
 		//debo generar un registro en itinerario
 		/* insert into en itinerario_tiene_atraccion
 		 */

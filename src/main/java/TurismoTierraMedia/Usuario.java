@@ -18,44 +18,53 @@ public class Usuario {
 		this.presupuesto = presupuesto;
 		this.tiempo = tiempo;
 		this.atraccion_preferida = atraccion_preferida;
+		this.idItinerario=null;
 	}
 
 	// getter y setter de los atributos
-	protected Integer getId() {
-		return id;
-	}
-
-	protected String getNombre() {
+	
+	public String getNombre() {
 		return nombre;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-	protected double getPresupuesto() {
+	public Double getPresupuesto() {
 		return presupuesto;
 	}
 
-	protected void setPresupuesto(double presupuesto) {
+	public void setPresupuesto(Double presupuesto) {
 		this.presupuesto = presupuesto;
 	}
 
-	protected double getTiempo() {
+	public Double getTiempo() {
 		return tiempo;
 	}
 
-	protected void setTiempo(double tiempo) {
+	public void setTiempo(Double tiempo) {
 		this.tiempo = tiempo;
 	}
 
-	protected Integer getIdItinerario() {
+	public Integer getIdItinerario() {
 		return idItinerario;
 	}
 
-	protected void setIdItinerario(Integer idItinerario) {
+	public void setIdItinerario(Integer idItinerario) {
 		this.idItinerario = idItinerario;
 	}
 
 	public String getAtraccion_preferida() {
 		return atraccion_preferida;
+	}
+
+	public void setAtraccion_preferida(String atraccion_preferida) {
+		this.atraccion_preferida = atraccion_preferida;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	@Override
@@ -64,5 +73,6 @@ public class Usuario {
 				+ ", idItinerario=" + idItinerario + ", atraccion_preferida=" + atraccion_preferida + "]";
 	}
 
+	
 	
 }
