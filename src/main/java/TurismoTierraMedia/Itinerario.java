@@ -6,19 +6,18 @@ import java.util.List;
 public class Itinerario {
 
 	private Integer id;
-	private String fecha;
+	private Integer usuario_id;
 	private List<Atraccion> lAtracciones; 
 	private List<Promocion> lPromociones;
 	
-	
-	public Itinerario(Integer id, String fecha, List<Atraccion> lAtracciones, List<Promocion> lPromociones) {
+
+	public Itinerario(Integer id, Integer usuario_id, List<Atraccion> lAtracciones, List<Promocion> lPromociones) {
 		super();
 		this.id = id;
-		this.fecha = fecha;
+		this.usuario_id = usuario_id;
 		this.lAtracciones = lAtracciones;
 		this.lPromociones = lPromociones;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -30,15 +29,13 @@ public class Itinerario {
 	}
 
 
-	public String getFecha() {
-		return fecha;
+	public Integer getUsuario_id() {
+		return usuario_id;
 	}
 
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+	public void setUsuario_id(Integer usuario_id) {
+		this.usuario_id = usuario_id;
 	}
-
 
 	public List<Atraccion> getlAtracciones() {
 		return lAtracciones;
@@ -59,14 +56,13 @@ public class Itinerario {
 		this.lPromociones = lPromociones;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Itinerario [id=" + id + ", fecha=" + fecha + ", lAtracciones=" + lAtracciones + ", lPromociones="
-				+ lPromociones + "]";
+		return "Itinerario [id=" + id + ", usuario_id=" + usuario_id + ", lAtracciones=" + lAtracciones
+				+ ", lPromociones=" + lPromociones + "]";
 	}
-	
-	
+
+
 	
 	
 	

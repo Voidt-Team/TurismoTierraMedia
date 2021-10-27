@@ -18,14 +18,14 @@ import TurismoTierraMedia.db.ConnectionProvider;
 public class ItinerarioDAO {
 
 	//aca se inserta un registro en la tabla itinerario, luego debemos usar esto para modificar usuario
-	private void insert() throws SQLException{
+	private void insert(Integer usuario_id) throws SQLException{
 		Connection connection = ConnectionProvider.getConnection();
-		String query = "INSERT INTO itineratio(\"fecha\") VALUES (?)";
+		String query = "INSERT INTO itineratio(\"usuario_id\") VALUES (?)";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		//obtengo la fecha del sistema, la casteo a string y se la paso a la query
-		preparedStatement.setString(1,LocalDateTime.now().toString());
+		preparedStatement.setInt(1,usuario_id);
 		preparedStatement.executeUpdate();
+		
 
 	}
 	
@@ -57,13 +57,13 @@ public class ItinerarioDAO {
 	
 	}
 	
-	//devuelve un itinerario
+	//devuelve un itinerario filtrado por id de usuario
 	public Itinerario findById(Integer id) throws SQLException {
 		Itinerario itinerario = null;
 		
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT * from itineratio i inner join itineratio_tiene_atraccion inner join itineratio_tiene_promocion where i.id=?";
+		String query = "SELECT * from itineratio i inner join itineratio_tiene_atraccion inner join itineratio_tiene_promocion where i.usuario_id=?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
@@ -79,13 +79,13 @@ public class ItinerarioDAO {
 	
 	public Itinerario toItinerario(ResultSet resultSet) throws SQLException {
 		
-		//listas null
+		//listas null...
 		Integer id = resultSet.getInt("id");
-		String fecha = resultSet.getString("fecha");
+		Integer usuario_id = resultSet.getInt("usuario_id");
 		List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 		List<Promocion> lista_promociones = new ArrayList<Promocion>();
 		
 		
-		return new Itinerario(id, fecha, lista_atracciones, lista_promociones);
+		return new Itinerario(id, usuario_id, lista_atracciones, lista_promociones);
 	}
 }
