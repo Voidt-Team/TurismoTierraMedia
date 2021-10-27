@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import TurismoTierraMedia.dao.AtraccionDAO;
 import TurismoTierraMedia.dao.PromocionDAO;
+import TurismoTierraMedia.dao.UsuarioDAO;
 
 
 public class Sugeridor {
@@ -268,25 +269,63 @@ public class Sugeridor {
 			}
 		}
 		
-		//----------------------Metodos de actualizacion----------------------------------
-		//Llama a los metodos de actualizacion de: presupuesto y tiempo del usuario que compro una promo
-		//actualizacion de historial de promociones y actualizacion de cupo de las atracciones de una promo
-		public static void actualizarPromo(Usuario usuario, Promocion promocion) {
-			System.out.println("\nHas elegido la promocion: " + promocion.getNombre());
-			//actualizarPresupuestoTiempoPromocion(usuario, promocion);
-			//actualizarHistorialPromociones(usuario, promocion);
-			//actualizarCupoAtraccionPromo(promocion);
-		}
 		
-		//Llama a los metodos de actualizacion de: presupuesto y tiempo del usuario que compro una atraccion
-		//actualizacion de historial de atracciones y actualizacion de cupo de la atraccion
+		//----------------------Metodos de actualizacion----------------------------------
+		// Llama a los metodos de actualizacion de: presupuesto y tiempo del usuario que
+		// compro una promo
+		// actualizacion de historial de promociones y actualizacion de cupo de las
+		// atracciones de una promo
+		public static void actualizarPromo(Usuario usuario, Promocion promocion) throws SQLException {
+			System.out.println("\nHas elegido la promocion: " + promocion.getNombre());
+			actualizarUsuarioPromocion(usuario, promocion);
+			// actualizarHistorialPromociones(usuario, promocion);
+			actualizarCupoAtraccionPromo(promocion);
+		}
+
+		// Llama a los metodos de actualizacion de: presupuesto y tiempo del usuario que
+		// compro una atraccion
+		// actualizacion de historial de atracciones y actualizacion de cupo de la
+		// atraccion
 		public static void actualizarAtraccion(Usuario usuario, Atraccion atraccion) throws SQLException {
 			System.out.println("\nHas elegido la atraccion: " + atraccion.getNombre());
-			actualizarPresupuestoTiempoAtraccion(usuario, atraccion);
-			//actualizarHistorialAtracciones(usuario, atraccion);
+			actualizarUsuarioAtraccion(usuario, atraccion);
+			// actualizarHistorialAtracciones(usuario, atraccion);
 			actualizarCupoAtraccion(atraccion);
 		}
 		
+		
+		//------------------------------Metodos de Actualizacion de cupos de ATRACCIONES--------------------------
+		
+		// Actualizar cupo de atracciones
+		public static void actualizarCupoAtraccion(Atraccion atraccion) throws SQLException {
+			AtraccionDAO atraccionDao = new AtraccionDAO();
+			atraccionDao.actualizarAtraccion(atraccion);
+		}
+		
+		// Actualizar cupo de atracciones de una promocion
+		public static void actualizarCupoAtraccionPromo(Promocion promo) throws SQLException {
+			List<Atraccion> atraccionesPromo = promo.getLista_atracciones();
+			for (Atraccion atraccion : atraccionesPromo) {
+				actualizarCupoAtraccion(atraccion);
+			}
+			if (promo.getAxb_id() != 0) {
+				actualizarCupoAtraccion(promo.getAxb());
+			}
+		}
+		
+		//------------------------------Metodos de Actualizacion de USUARIO--------------------------
+		// Actualizar presupuesto y tiempo del usuario cuando elige atraccion //VER con sql
+		public static void actualizarUsuarioAtraccion(Usuario usuario, Atraccion atraccion) throws SQLException {
+			UsuarioDAO usuarioDao = new UsuarioDAO();
+			usuarioDao.actualizarUsuario(usuario, atraccion);
+		}
+		
+		// Actualizar presupuesto y tiempo del usuario cuando elige promocion //VER con sql
+		public static void actualizarUsuarioPromocion(Usuario usuario, Promocion promocion) throws SQLException {
+			UsuarioDAO usuarioDao = new UsuarioDAO();
+			usuarioDao.actualizarUsuario(usuario, promocion);
+		}
+
 		//------------------------------Metodos de Actualizacion de listas de usuario--------------------------
 		// Actualizar historial de Atracciones //VER con sql
 //		public static void actualizarHistorialAtracciones(Usuario usuario, Atraccion atraccion) {
@@ -309,51 +348,5 @@ public class Sugeridor {
 //				}
 //			}
 //		}
-
-		// Actualizar presupuesto y tiempo del usuario cuando elige promocion //VER con sql
-//		public static void actualizarPresupuestoTiempoPromocion(Usuario usuario, Promocion promo) {
-//			usuario.setPresupuesto((int) (usuario.getPresupuesto() - promo.costoPromocion()));
-//			usuario.setTiempoDisponible(usuario.getTiempoDisponible() - promo.tiempoPromocion());
-//		}
-
-		
-		/* YA DEBERIA ANDAR ESTE METODO... */
-		// Actualizar presupuesto y tiempo del usuario cuando elige atraccion //VER con sql
-		public static void actualizarPresupuestoTiempoAtraccion(Usuario usuario, Atraccion atraccion) {
-			usuario.setPresupuesto((Double) (usuario.getPresupuesto() - atraccion.getCosto()));
-			usuario.setTiempo(usuario.getTiempo() - atraccion.getTiempo());
-		}
-
-		//------------------------------Metodos de Actualizacion de cupos--------------------------
-		// De atracciones de una promocion//VER con sql
-//		public static void actualizarCupoAtraccionPromo(Promocion promo) {
-//			List<Atraccion> atraccionesPromo = new ArrayList<Atraccion>();
-//			for (Atraccion a : listaAtracciones) {
-//				atraccionesPromo = promo.getAtracciones();
-//				for (Atraccion atracc : atraccionesPromo) {
-//					if ((a.getNombre()).compareTo(atracc.getNombre()) == 0) {
-//						a.setCupo(a.getCupo() - 1);
-//					}
-//				}
-//			}
-			// Esta parte es para actualizar el cupo de la atraccion gratis si la promo es
-			// AxB////VER con sql
-//			if (promo.tipoPromocion() == 3) {
-//				String gratis = promo.ImprimirBonus();
-//				for (Atraccion atraccion : listaAtracciones) {
-//					if (gratis.compareTo(atraccion.getNombre()) == 0) {
-//						atraccion.setCupo(atraccion.getCupo() - 1);
-//					}
-//				}
-//			}
-
-//		}
-
-		// De atraccion//VER con sql
-		public static void actualizarCupoAtraccion(Atraccion atraccion) throws SQLException {
-			AtraccionDAO atraccionDao = new AtraccionDAO();
-			atraccionDao.actualizarAtraccion(atraccion);
-			//atraccion.setCupo(atraccion.getCupo() - 1);
-		}
 
 }
