@@ -12,6 +12,7 @@ import TurismoTierraMedia.Atraccion;
 import TurismoTierraMedia.dao.AtraccionDAO;
 import TurismoTierraMedia.Itinerario;
 import TurismoTierraMedia.Promocion;
+import TurismoTierraMedia.Usuario;
 import TurismoTierraMedia.db.ConnectionProvider;
 
 
@@ -31,26 +32,60 @@ public class ItinerarioDAO {
 	}
 	
 	
-	private void insert (Atraccion at) throws SQLException{
-		//aca deberia llamar a toItineraio y pasarle los datos para generar el objeto(ver)
-		//debo generar un registro en itinerario
-		/* insert into en itinerario_tiene_atraccion
+	private void insert(Atraccion at, Usuario u) throws SQLException {
+		// aca deberia llamar a toItineraio y pasarle los datos para generar el
+		// objeto(ver)
+		// debo generar un registro en itinerario
+		/*
+		 * insert into en itinerario_tiene_atraccion
 		 */
-		
-		//aca debemos tomar el id de itinerario e hacer insert en la tabla itinerario_tiene_atraccion
-              //https://www.sqlitetutorial.net/sqlite-java/insert/
-		
-	} 
+
+		// aca debemos tomar el id de itinerario e hacer insert en la tabla
+		// itinerario_tiene_atraccion
+		// https://www.sqlitetutorial.net/sqlite-java/insert/
+
+		// primero se agrega el registro a itinerario
+		insert(u.getId());
+		// se llama a findbyid para obtener el itinerario generado para el usuario
+		Itinerario i = findById(u.getId());
+
+		// con esos datos mas la atraccion elegida se agrega el registro a
+		// itinerario_tiene_atraccon
+		Connection connection = ConnectionProvider.getConnection();
+		String query = "insert into itineratio_tiene_atraccion (\"itineratio_id\",\"atraccion_id\") VALUES (?,?);";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, i.getId());
+		preparedStatement.setInt(2, at.getId());
+		preparedStatement.executeUpdate();
+
+	}
 	
-	private void insert (Promocion pr) throws SQLException{
-		//aca deberia llamar a toItineraio y pasarle los datos pra generar el objeto (ver)
-		
-		//aca debemos tomar el id de itinerario e hacer insert en la tabla:
-		
-		/* insert into en itinerario_tiene_promocion
-		 */	
-		
-		
+	private void insert(Promocion pr, Usuario u) throws SQLException {
+		// aca deberia llamar a toItineraio y pasarle los datos pra generar el objeto
+		// (ver)
+
+		// aca debemos tomar el id de itinerario e hacer insert en la tabla:
+
+		/*
+		 * insert into en itinerario_tiene_promocion
+		 */
+
+		// primero se agrega el registro a itinerario
+		insert(u.getId());
+		// se llama a findbyid para obtener el itinerario generado para el usuario
+		Itinerario i = findById(u.getId());
+
+		// con esos datos mas la promocion elegida se agrega el registro a
+		// promocion
+		Connection connection = ConnectionProvider.getConnection();
+		String query = "insert into itineratio_tiene_atraccion (\"itineratio_id\",\"atraccion_id\") VALUES (?,?);";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, i.getId());
+		preparedStatement.setInt(2, pr.getId());
+		preparedStatement.executeUpdate();
+
 	}
 	
 	public void update (Interger id, Atraccion at) throws SQLException{

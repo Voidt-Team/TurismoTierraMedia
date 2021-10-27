@@ -23,7 +23,7 @@ public class Promocion {
 		this.lista_atracciones = lista_atracciones;
 	}
 
-	protected Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
