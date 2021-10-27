@@ -79,7 +79,7 @@ public class ItinerarioDAO {
 		// con esos datos mas la promocion elegida se agrega el registro a
 		// promocion
 		Connection connection = ConnectionProvider.getConnection();
-		String query = "insert into itineratio_tiene_atraccion (\"itineratio_id\",\"atraccion_id\") VALUES (?,?);";
+		String query = "insert into itineratio_tiene_promocion (\"itineratio_id\",\"promocion_id\") VALUES (?,?);";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, i.getId());
@@ -87,7 +87,7 @@ public class ItinerarioDAO {
 		preparedStatement.executeUpdate();
 
 	}
-	
+	/*
 	public void update (Interger id, Atraccion at) throws SQLException{
 		//con un if pregunta si existe itinerario, sino llama a insert con parametro atraccion
 		//pero si existe sigue la secuencia y describe si actualiz la lista atraccion o promocion...
@@ -99,7 +99,7 @@ public class ItinerarioDAO {
 		//pero si existe sigue la secuencia y describe si actualiz la lista atraccion o promocion...
 	
 	}
-	
+	*/
 	//devuelve un itinerario filtrado por id de usuario
 	public Itinerario findById(Integer id) throws SQLException {
 		Itinerario itinerario = null;
