@@ -51,6 +51,7 @@ public class UsuarioDAO {
 		return usuarios;
 	}
 	
+	//Busca un usuario por Id
 	public Usuario findById(Integer id) throws SQLException {
 		Usuario usuario = null;
 
@@ -63,13 +64,8 @@ public class UsuarioDAO {
 
 		ResultSet resultSet = preparedStatement.executeQuery();
 
-		// eye! empieza en 1 el resultset
 		if (resultSet.next()) {
-			// aca, el resultset, esta posicionado en el primer resultado
-
-			// aca procesamos el resultset
 			usuario = toUsuario(resultSet);
-
 		}
 		return usuario;
 	}

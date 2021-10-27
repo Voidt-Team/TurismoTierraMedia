@@ -16,11 +16,11 @@ public class AtraccionDAO {
 	public void actualizarAtraccion(Atraccion atra) throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();
 		
-		String query = "UPDATE atraccion set cupo=? where id=?";
+		String query = "UPDATE atraccion set cupo = ? where id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		
-		preparedStatement.setInt(1, atra.getCupo());
+		preparedStatement.setInt(1, atra.getCupo() - 1);
 		preparedStatement.setInt(2, atra.getId());
 		
 		preparedStatement.executeUpdate();

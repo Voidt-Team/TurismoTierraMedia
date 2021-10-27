@@ -280,11 +280,11 @@ public class Sugeridor {
 		
 		//Llama a los metodos de actualizacion de: presupuesto y tiempo del usuario que compro una atraccion
 		//actualizacion de historial de atracciones y actualizacion de cupo de la atraccion
-		public static void actualizarAtraccion(Usuario usuario, Atraccion atraccion) {
+		public static void actualizarAtraccion(Usuario usuario, Atraccion atraccion) throws SQLException {
 			System.out.println("\nHas elegido la atraccion: " + atraccion.getNombre());
 			actualizarPresupuestoTiempoAtraccion(usuario, atraccion);
 			//actualizarHistorialAtracciones(usuario, atraccion);
-			//actualizarCupoAtraccion(atraccion);
+			actualizarCupoAtraccion(atraccion);
 		}
 		
 		//------------------------------Metodos de Actualizacion de listas de usuario--------------------------
@@ -350,8 +350,10 @@ public class Sugeridor {
 //		}
 
 		// De atraccion//VER con sql
-//		public static void actualizarCupoAtraccion(Atraccion atraccion) {
-//			atraccion.setCupo(atraccion.getCupo() - 1);
-//		}
+		public static void actualizarCupoAtraccion(Atraccion atraccion) throws SQLException {
+			AtraccionDAO atraccionDao = new AtraccionDAO();
+			atraccionDao.actualizarAtraccion(atraccion);
+			//atraccion.setCupo(atraccion.getCupo() - 1);
+		}
 
 }
