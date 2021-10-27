@@ -9,6 +9,7 @@ import java.util.List;
 
 import java.time.LocalDateTime;
 import TurismoTierraMedia.Atraccion;
+import TurismoTierraMedia.dao.AtraccionDAO;
 import TurismoTierraMedia.Itinerario;
 import TurismoTierraMedia.Promocion;
 import TurismoTierraMedia.db.ConnectionProvider;
@@ -25,8 +26,7 @@ public class ItinerarioDAO {
 		//obtengo la fecha del sistema, la casteo a string y se la paso a la query
 		preparedStatement.setString(1,LocalDateTime.now().toString());
 		preparedStatement.executeUpdate();
-		
-		//deberia llamar a toItinerario?
+
 	}
 	
 	private void insert (Atraccion at) throws SQLException{
@@ -57,23 +57,35 @@ public class ItinerarioDAO {
 	
 	}
 	
-	//devuelve una lista con el itinerario del usuario pedido...
-	public List<Itinerario> findallbyiduser(Integer id)throws SQLException{
-		List<Itinerario> litinerario= new ArrayList<Itinerario>();
+	//devuelve un itinerario
+	public Itinerario findById(Integer id) throws SQLException {
+		Itinerario itinerario = null;
 		
-		return litinerario;
+		Connection connection = ConnectionProvider.getConnection();
+
+		String query = "SELECT * from itineratio i inner join itineratio_tiene_atraccion inner join itineratio_tiene_promocion where i.id=?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.next()) {
+			itinerario = toItinerario(resultSet);
+		}
+
+		return itinerario;
 	}
+
 	
 	public Itinerario toItinerario(ResultSet resultSet) throws SQLException {
+		
+		//listas null
 		Integer id = resultSet.getInt("id");
+		String fecha = resultSet.getString("fecha");
+		List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
+		List<Promocion> lista_promociones = new ArrayList<Promocion>();
 		
 		
-		//aca se debe definir a que constructor llamar...
-		//si desea llenar con atracciones o con promos
-		
-		o lleno it_tiene_atracc
-		o lleno it_tiene_promo
-		
-		return new Itinerario(id, List<Atraccion> lista_atracciones, List<Promocion> lista_promociones);
+		return new Itinerario(id, fecha, lista_atracciones, lista_promociones);
 	}
 }

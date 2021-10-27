@@ -14,6 +14,23 @@ import TurismoTierraMedia.Usuario;
 
 public class UsuarioDAO {
 
+	
+	//Actualiza todos los campos del usuario y el id itinerario
+	public void actualizarUsuario(Usuario usu, Integer id)throws SQLException {
+		Connection connection = ConnectionProvider.getConnection();
+		
+		String query = "UPDATE usuario set presupuesto=?, tiempo=?, itineratio_id=? where id=?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		
+		preparedStatement.setDouble(1, usu.getPresupuesto()); 
+		preparedStatement.setDouble(2, usu.getTiempo()); 
+		preparedStatement.setInt(3, id);
+		preparedStatement.setInt(4, usu.getId());
+		
+		preparedStatement.executeUpdate();
+	}
+	
 	//Actualiza todos los campos del usuario que compro una atraccion
 	public void actualizarUsuario(Usuario usu, Atraccion atraccion)throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();

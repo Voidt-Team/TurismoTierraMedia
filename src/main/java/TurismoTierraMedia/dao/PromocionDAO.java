@@ -62,7 +62,24 @@ public class PromocionDAO {
 		}
 		return lpromociones;
 	}
+	//devuelve una promocion correspondiente al id pasado
+	public Promocion findById(Integer id) throws SQLException {
+		Promocion promo = null;
 
+		Connection connection = ConnectionProvider.getConnection();
+
+		String query = "select * from promocion WHERE id=?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.next()) {
+			promo = toPromocion(resultSet);
+		}
+
+		return promo;
+	}
 	
 	// devuelve una lista con las atracciones que contiene una promocion solicitada
 	public List<Atraccion> findAllAttractionsByPromoId(Integer id) throws SQLException {
