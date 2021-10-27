@@ -20,9 +20,10 @@ public class ItinerarioDAO {
 
 	//aca se inserta un registro en la tabla itinerario, donde pasamos el id del usuario al cual
 	//se lo asignamos, luego deberiamos via codigo(capaz que en sugeridor) actualizar el campo itinerario_id de usuario
+	//agregeue el or ignore en la sentencia para que no agregue mas de un id de usuario repetido
 	private void insert(Integer usuario_id) throws SQLException{
 		Connection connection = ConnectionProvider.getConnection();
-		String query = "INSERT INTO itineratio(\"usuario_id\") VALUES (?)";
+		String query = "INSERT or IGNORE INTO itineratio(\"usuario_id\") VALUES (?)";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1,usuario_id);
@@ -48,6 +49,9 @@ public class ItinerarioDAO {
 		insert(u.getId());
 		// se llama a findbyid para obtener el itinerario generado para el usuario
 		Itinerario i = findById(u.getId());
+		// se crea un objeto usuarioDAO para acceder a los metodos de usuarioDAO y actualizar el usuario.itinerario_id
+		UsuarioDAO udao = new UsuarioDAO();
+		udao.actualizarUsuario(u, i.getId());
 
 		// con esos datos mas la atraccion elegida se agrega el registro a
 		// itinerario_tiene_atraccon
@@ -75,7 +79,10 @@ public class ItinerarioDAO {
 		insert(u.getId());
 		// se llama a findbyid para obtener el itinerario generado para el usuario
 		Itinerario i = findById(u.getId());
-
+		// se crea un objeto usuarioDAO para acceder a los metodos de usuarioDAO y actualizar el usuario.itinerario_id
+		UsuarioDAO udao = new UsuarioDAO();
+		udao.actualizarUsuario(u, i.getId());
+				
 		// con esos datos mas la promocion elegida se agrega el registro a
 		// promocion
 		Connection connection = ConnectionProvider.getConnection();
