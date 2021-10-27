@@ -17,7 +17,8 @@ import TurismoTierraMedia.db.ConnectionProvider;
 
 public class ItinerarioDAO {
 
-	//aca se inserta un registro en la tabla itinerario, luego debemos usar esto para modificar usuario
+	//aca se inserta un registro en la tabla itinerario, donde pasamos el id del usuario al cual
+	//se lo asignamos, luego deberiamos via codigo(capaz que en sugeridor) actualizar el campo itinerario_id de usuario
 	private void insert(Integer usuario_id) throws SQLException{
 		Connection connection = ConnectionProvider.getConnection();
 		String query = "INSERT INTO itineratio(\"usuario_id\") VALUES (?)";
@@ -29,20 +30,27 @@ public class ItinerarioDAO {
 
 	}
 	
+	
 	private void insert (Atraccion at) throws SQLException{
-		//aca deberia llamar a toItineraio y pasarle los datos para generar el objeto
+		//aca deberia llamar a toItineraio y pasarle los datos para generar el objeto(ver)
 		//debo generar un registro en itinerario
 		/* insert into en itinerario_tiene_atraccion
 		 */
+		
+		//aca debemos tomar el id de itinerario e hacer insert en la tabla itinerario_tiene_atraccion
               //https://www.sqlitetutorial.net/sqlite-java/insert/
 		
 	} 
 	
 	private void insert (Promocion pr) throws SQLException{
-		//aca deberia llamar a toItineraio y pasarle los datos pra generar el objeto
+		//aca deberia llamar a toItineraio y pasarle los datos pra generar el objeto (ver)
+		
+		//aca debemos tomar el id de itinerario e hacer insert en la tabla:
 		
 		/* insert into en itinerario_tiene_promocion
-		 */		
+		 */	
+		
+		
 	}
 	
 	public void update (Interger id, Atraccion at) throws SQLException{
@@ -76,14 +84,16 @@ public class ItinerarioDAO {
 		return itinerario;
 	}
 
-	
+	//aca se genera el objeto itinerario pero con listas vacias...
 	public Itinerario toItinerario(ResultSet resultSet) throws SQLException {
 		
-		//listas null...
+		//no pude generar una lista con lo que trae el resultset
+		//suouestamente en este punto tenemos todos los datos para generar una lista promocion
+		//o una lista atraccion porque el resultset trae la grilla completa
 		Integer id = resultSet.getInt("id");
 		Integer usuario_id = resultSet.getInt("usuario_id");
-		List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
-		List<Promocion> lista_promociones = new ArrayList<Promocion>();
+		List<Atraccion> lista_atracciones = null;
+		List<Promocion> lista_promociones = null;
 		
 		
 		return new Itinerario(id, usuario_id, lista_atracciones, lista_promociones);
