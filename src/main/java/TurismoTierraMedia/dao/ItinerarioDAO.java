@@ -20,7 +20,10 @@ public class ItinerarioDAO {
 
 	//aca se inserta un registro en la tabla itinerario, donde pasamos el id del usuario al cual
 	//se lo asignamos, luego deberiamos via codigo(capaz que en sugeridor) actualizar el campo itinerario_id de usuario
-	//agregeue el or ignore en la sentencia para que no agregue mas de un id de usuario repetido
+	//agregeue el or ignore en la sentencia para que no agregue mas de un id de usuario repetido //SI!!!
+	//Para hacer eso en el sugeridor habria que hacer una consulta sobre el id de itinerario
+	//que pregunte si es not null, si es not null solo haria insercion de id de atraccion o promo en la relacion correspondiente
+	//con itinerario
 	private void insert(Integer usuario_id) throws SQLException{
 		Connection connection = ConnectionProvider.getConnection();
 		String query = "INSERT or IGNORE INTO itineratio(\"usuario_id\") VALUES (?)";
