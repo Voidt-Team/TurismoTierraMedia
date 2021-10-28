@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TurismoTierraMediaTest {
+public class AppTest {
 
 	Atraccion prueba;
 	List<Atraccion> listaAtracciones;
