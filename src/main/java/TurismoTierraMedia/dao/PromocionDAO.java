@@ -50,7 +50,7 @@ public class PromocionDAO {
 				+ "WHERE u.tipo_atraccion_id <> a.tipo_atraccion_id "
 				+ "AND p.id = pa.promocion_id "
 				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?"
-				+"EXCEPT"
+				+" EXCEPT "
 				+"SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
 				+ "FROM usuario u JOIN atraccion a "
 				+ "JOIN promocion_tiene_atraccion pa "
