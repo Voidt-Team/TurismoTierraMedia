@@ -49,10 +49,20 @@ public class PromocionDAO {
 				+ "JOIN promocion p "
 				+ "WHERE u.tipo_atraccion_id <> a.tipo_atraccion_id "
 				+ "AND p.id = pa.promocion_id "
-				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?";
+				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?"
+				+"EXCEPT"
+				+"SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
+				+ "FROM usuario u JOIN atraccion a "
+				+ "JOIN promocion_tiene_atraccion pa "
+				+ "JOIN promocion p "
+				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id "
+				+ "AND p.id = pa.promocion_id "
+				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?"
+				;
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
+		preparedStatement.setInt(2, id);
 
 		ResultSet resultSet = preparedStatement.executeQuery();
 
