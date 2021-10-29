@@ -102,4 +102,33 @@ public class ItinerarioDAO {
 	
 		return new Itinerario(id, usuario_id, lista_atracciones, lista_promociones);
 	}
+
+
+	public List<Promocion> buscarItinerarioPromociones(Usuario usuario) {
+		List<Promocion> promociones =  new ArrayList<Promocion>();
+		Connection connection = ConnectionProvider.getConnection();
+		
+		String query = "SELECT * FROM itinerario i "
+				+ "WHERE i.usuario_id = ?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.next()) {
+			itinerario = toItinerario(resultSet);
+		}
+
+		return itinerario;
+		
+	}
+
+
+	public void buscarItinerarioAtracciones(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
 }

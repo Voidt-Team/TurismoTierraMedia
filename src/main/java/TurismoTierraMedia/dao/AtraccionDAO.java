@@ -31,11 +31,13 @@ public class AtraccionDAO {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT A.*, TA.nombre as tipo_atraccion " + "FROM atraccion A INNER JOIN usuario U "
-				+ "INNER JOIN tipo_de_atraccion TA  "
-				+ "WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id\r\n"
-				+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?\r\n"
-				+ "ORDER BY A.costo DESC, A.tiempo DESC";
+		String query = "SELECT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U "
+				+ "	INNER JOIN tipo_de_atraccion TA "
+				+ "	INNER JOIN itinerario_tiene_atraccion IA "
+				+ "	WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id "
+				+ "	AND A.id <> IA.atraccion_id "
+				+ "	AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?"
+				+ "	ORDER BY A.costo DESC, A.tiempo DESC";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
@@ -54,11 +56,13 @@ public class AtraccionDAO {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT A.*, TA.nombre as tipo_atraccion " + "FROM atraccion A "
-				+ "INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA  "
-				+ "WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id\r\n"
-				+ "AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?\r\n"
-				+ "ORDER BY A.costo DESC, A.tiempo DESC";
+		String query = "SELECT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U "
+				+ "	INNER JOIN tipo_de_atraccion TA "
+				+ "	INNER JOIN itinerario_tiene_atraccion IA "
+				+ "	WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id "
+				+ "	AND A.id <> IA.atraccion_id "
+				+ "	AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?"
+				+ "	ORDER BY A.costo DESC, A.tiempo DESC";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);

@@ -17,13 +17,14 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		//AGREGAR que no muestre las que estan en itinerario promociones
-		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual \r\n"
-				+ "FROM usuario u JOIN atraccion a \r\n"
-				+ "JOIN promocion_tiene_atraccion pa \r\n"
-				+ "JOIN promocion p \r\n"
-				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id \r\n"
-				+ "AND p.id = pa.promocion_id \r\n"
+		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
+				+ "FROM usuario u JOIN atraccion a "
+				+ "JOIN promocion_tiene_atraccion pa "
+				+ "JOIN promocion p "
+				+ "JOIN itinerario_tiene_promocion IP "
+				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id "
+				+ "AND p.id = pa.promocion_id "
+				+ "AND p.id <> IP.promocion_id "
 				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -50,16 +51,15 @@ public class PromocionDAO {
 				+ "JOIN promocion p "
 				+ "WHERE u.tipo_atraccion_id <> a.tipo_atraccion_id "
 				+ "AND p.id = pa.promocion_id "
-				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?"
-				+" EXCEPT "
-				+"SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
+				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ? "
+				+ "EXCEPT "
+				+ "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
 				+ "FROM usuario u JOIN atraccion a "
 				+ "JOIN promocion_tiene_atraccion pa "
 				+ "JOIN promocion p "
 				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id "
 				+ "AND p.id = pa.promocion_id "
-				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?"
-				;
+				+ "AND pa.atraccion_id = a.id and a.cupo > 0 and u.id = ?";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);

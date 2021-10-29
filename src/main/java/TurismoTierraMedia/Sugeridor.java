@@ -315,7 +315,10 @@ public class Sugeridor {
 	//------------------------------Metodo para cuando ya no se puede comprar mas--------------------------
 	public static void noMasCompras(Usuario usuario, int opcion, List<Usuario> listaUsuarios) throws SQLException {
 		System.out.println("No puedes realizar compras!");
+		ItinerarioDAO itinerario = new ItinerarioDAO();
 		// ItinerarioViejo.generarArchivoUsuario(usuario);
+		itinerario.buscarItinerarioPromociones(usuario);
+		itinerario.buscarItinerarioAtracciones(usuario);
 		opcion = 99999;
 		// ItinerarioViejo.mostrarItinerario(usuario);
 		App.consola();
