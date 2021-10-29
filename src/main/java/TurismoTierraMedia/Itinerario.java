@@ -23,37 +23,24 @@ public class Itinerario {
 		return id;
 	}
 
-	//setearemos con el id autogenerado de la tabla
-	public void setId(Integer id) {
+	protected void setId(Integer id) {
 		this.id = id;
 	}
 
+	protected void setUsuario_id(Integer usuario_id) {
+		this.usuario_id = usuario_id;
+	}
 
 	public Integer getUsuario_id() {
 		return usuario_id;
-	}
-
-	public void setUsuario_id(Integer usuario_id) {
-		this.usuario_id = usuario_id;
 	}
 
 	public List<Atraccion> getlAtracciones() {
 		return lAtracciones;
 	}
 
-
-	public void setlAtracciones(List<Atraccion> lAtracciones) {
-		this.lAtracciones = lAtracciones;
-	}
-
-
 	public List<Promocion> getlPromociones() {
 		return lPromociones;
-	}
-
-
-	public void setlPromociones(List<Promocion> lPromociones) {
-		this.lPromociones = lPromociones;
 	}
 
 	@Override
@@ -62,8 +49,4 @@ public class Itinerario {
 				+ ", lPromociones=" + lPromociones + "]";
 	}
 
-
-	
-	
-	
 }

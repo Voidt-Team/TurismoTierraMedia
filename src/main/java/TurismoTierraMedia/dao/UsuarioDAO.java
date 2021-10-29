@@ -16,7 +16,7 @@ public class UsuarioDAO {
 
 	
 	//Actualiza todos los campos del usuario y el id itinerario
-	public void actualizarUsuario(Usuario usu, Integer id)throws SQLException {
+	public void actualizarUsuario(Usuario usu, Integer itinerario_id)throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();
 		
 		String query = "UPDATE usuario set presupuesto=?, tiempo=?, itinerario_id=? where id=?";
@@ -25,7 +25,7 @@ public class UsuarioDAO {
 		
 		preparedStatement.setDouble(1, usu.getPresupuesto()); 
 		preparedStatement.setDouble(2, usu.getTiempo()); 
-		preparedStatement.setInt(3, id);
+		preparedStatement.setInt(3, itinerario_id);
 		preparedStatement.setInt(4, usu.getId());
 		
 		preparedStatement.executeUpdate();

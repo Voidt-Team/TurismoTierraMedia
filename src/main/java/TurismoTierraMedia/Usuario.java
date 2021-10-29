@@ -51,7 +51,8 @@ public class Usuario {
 		return idItinerario;
 	}
 
-	public void setIdItinerario(Integer idItinerario) {
+	
+	protected void setIdItinerario(Integer idItinerario) {
 		this.idItinerario = idItinerario;
 	}
 

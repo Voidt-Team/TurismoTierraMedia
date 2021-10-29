@@ -28,14 +28,37 @@ public class Sugeridor {
 		// Dependiento de las listas filtradas es por donde comienza.
 		while (opcion != 99999) {
 			if (!promosPreferidas.isEmpty()) {
-				sugerirPromocionesPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
+				int cont = 0;
+				for (Promocion promocion : promosPreferidas) {
+					if(promocion.costoPromocion() <= usuario.getPresupuesto() && promocion.tiempoPromocion() <= usuario.getTiempo()) {
+						cont++;
+					}
+				}	
+				if(cont > 0) {
+					sugerirPromocionesPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
 						atraccNoPreferidas, opcion, listaUsuarios);
+				}else {
+					sugerirAtraccionesPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
+							atraccNoPreferidas, opcion, listaUsuarios);
+				}
 			} else if (!atraccPreferidas.isEmpty()) {
 				sugerirAtraccionesPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
 						atraccNoPreferidas, opcion, listaUsuarios);
 			} else if (!promosNoPreferidas.isEmpty()) {
-				sugerirPromocionesNoPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
-						atraccNoPreferidas, opcion, listaUsuarios);
+				int cont = 0;
+				for (Promocion promocion : promosNoPreferidas) {
+					if(promocion.costoPromocion() <= usuario.getPresupuesto() && promocion.tiempoPromocion() <= usuario.getTiempo()) {
+						cont++;
+					}
+				}	
+				if(cont > 0) {
+					sugerirPromocionesNoPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
+							atraccNoPreferidas, opcion, listaUsuarios);
+				}else {
+					sugerirAtraccionesNoPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
+							atraccNoPreferidas, opcion, listaUsuarios);
+				}
+
 			} else if (!atraccNoPreferidas.isEmpty()) {
 				sugerirAtraccionesNoPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
 						atraccNoPreferidas, opcion, listaUsuarios);
@@ -54,7 +77,7 @@ public class Sugeridor {
 			PromocionDAO promociones = new PromocionDAO();
 			AtraccionDAO atracciones = new AtraccionDAO();
 			ItinerarioDAO itinerario = new ItinerarioDAO();
-			Itinerario objetoItinerario = null;
+
 		
 			while(!promosPreferidas.isEmpty()) {
 				sugerirPromos(promosPreferidas,usuario, true);
@@ -69,17 +92,24 @@ public class Sugeridor {
 						opcion = (int) Double.parseDouble(entrada);
 						
 						//ACA ESTA LO DEL ITINERARIO
-						Integer itinerario_id = itinerario.findById(usuario.getId()).getId();
+						Integer itinerario_id = usuario.getIdItinerario();
+						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
-						}else {
-							//Insertar promo de un itinerario
-							itinerario.insertItinerario(promosPreferidas.get(opcion - 1), usuario);
-							objetoItinerario.getlPromociones().add(promosPreferidas.get(opcion - 1));
+							usuario.setIdItinerario(itinerario_id);
+							System.out.println("ITTTTT2:" + itinerario_id);
 						}
+						
+						//Insertar atraccion de un itinerario
+						itinerario.insertItinerario(promosPreferidas.get(opcion - 1), usuario);
+						Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
+						itinerarioOBJ.setId(itinerario_id);
+						itinerarioOBJ.setUsuario_id(usuario.getId());
+						itinerarioOBJ.getlPromociones().add(promosPreferidas.get(opcion - 1));
+						
 						actualizarPromo(usuario, promosPreferidas.get(opcion - 1),itinerario_id);
 						
 
@@ -109,7 +139,6 @@ public class Sugeridor {
 			PromocionDAO promociones = new PromocionDAO();
 			AtraccionDAO atracciones = new AtraccionDAO();
 			ItinerarioDAO itinerario = new ItinerarioDAO();
-			Itinerario objetoItinerario = null;
 			
 			while(!atraccPreferidas.isEmpty()) {
 				sugerirAtracciones(atraccPreferidas, usuario, true);
@@ -124,17 +153,24 @@ public class Sugeridor {
 						opcion = (int) Double.parseDouble(entrada);
 						
 						//ACA ESTA LO DEL ITINERARIO
-						Integer itinerario_id = itinerario.findById(usuario.getId()).getId();
+						Integer itinerario_id = usuario.getIdItinerario();
+						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
-						}else {
-							//Insertar atraccion de un itinerario
-							itinerario.insertItinerario(atraccPreferidas.get(opcion - 1), usuario);
-							objetoItinerario.getlAtracciones().add(atraccPreferidas.get(opcion - 1));
+							usuario.setIdItinerario(itinerario_id);
+							System.out.println("ITTTTT2:" + itinerario_id);
 						}
+						
+						//Insertar atraccion de un itinerario
+						itinerario.insertItinerario(atraccPreferidas.get(opcion - 1), usuario);
+						Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
+						itinerarioOBJ.setId(itinerario_id);
+						itinerarioOBJ.setUsuario_id(usuario.getId());
+						itinerarioOBJ.getlAtracciones().add(atraccPreferidas.get(opcion - 1));
+						
 						actualizarAtraccion(usuario, atraccPreferidas.get(opcion - 1),itinerario_id);
 					
 						promosPreferidas = promociones.promocionesPreferidas(usuario.getId());
@@ -162,7 +198,6 @@ public class Sugeridor {
 			PromocionDAO promociones = new PromocionDAO();
 			AtraccionDAO atracciones = new AtraccionDAO();
 			ItinerarioDAO itinerario = new ItinerarioDAO();
-			Itinerario objetoItinerario = null;
 			
 			while(!promosNoPreferidas.isEmpty()) {
 				sugerirPromos(promosNoPreferidas,usuario, false);
@@ -175,19 +210,26 @@ public class Sugeridor {
 				try {
 					if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
 						opcion = (int) Double.parseDouble(entrada);
-						
+
 						//ACA ESTA LO DEL ITINERARIO
-						Integer itinerario_id = itinerario.findById(usuario.getId()).getId();
+						Integer itinerario_id = usuario.getIdItinerario();
+						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
-						}else {
-							//Insertar promo de un itinerario
-							itinerario.insertItinerario(promosNoPreferidas.get(opcion - 1), usuario);
-							objetoItinerario.getlPromociones().add(promosNoPreferidas.get(opcion - 1));
+							usuario.setIdItinerario(itinerario_id);
+							System.out.println("ITTTTT2:" + itinerario_id);
 						}
+						
+						//Insertar atraccion de un itinerario
+						itinerario.insertItinerario(promosNoPreferidas.get(opcion - 1), usuario);
+						Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
+						itinerarioOBJ.setId(itinerario_id);
+						itinerarioOBJ.setUsuario_id(usuario.getId());
+						itinerarioOBJ.getlPromociones().add(promosNoPreferidas.get(opcion - 1));
+						
 						actualizarPromo(usuario, promosNoPreferidas.get(opcion - 1),itinerario_id);
 
 						promosPreferidas = promociones.promocionesPreferidas(usuario.getId());
@@ -216,7 +258,6 @@ public class Sugeridor {
 			PromocionDAO promociones = new PromocionDAO();
 			AtraccionDAO atracciones = new AtraccionDAO();
 			ItinerarioDAO itinerario = new ItinerarioDAO();
-			Itinerario objetoItinerario = null;
 			
 			while(!atraccNoPreferidas.isEmpty()) {
 				sugerirAtracciones(atraccNoPreferidas, usuario, false);
@@ -231,17 +272,23 @@ public class Sugeridor {
 						opcion = (int) Double.parseDouble(entrada);
 						
 						//ACA ESTA LO DEL ITINERARIO
-						Integer itinerario_id = itinerario.findById(usuario.getId()).getId();
+						Integer itinerario_id = usuario.getIdItinerario();
+						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
-						}else {
-							//Insertar atraccion de un itinerario
-							itinerario.insertItinerario(atraccNoPreferidas.get(opcion - 1), usuario);
-							objetoItinerario.getlAtracciones().add(atraccNoPreferidas.get(opcion - 1));
+							usuario.setIdItinerario(itinerario_id);
+							System.out.println("ITTTTT2:" + itinerario_id);
 						}
+						
+						//Insertar atraccion de un itinerario
+						itinerario.insertItinerario(atraccNoPreferidas.get(opcion - 1), usuario);
+						Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
+						itinerarioOBJ.setId(itinerario_id);
+						itinerarioOBJ.setUsuario_id(usuario.getId());
+						itinerarioOBJ.getlAtracciones().add(atraccNoPreferidas.get(opcion - 1));
 						
 						actualizarAtraccion(usuario, atraccNoPreferidas.get(opcion - 1),itinerario_id);
 						
@@ -274,29 +321,24 @@ public class Sugeridor {
 		App.consola();
 	}
 
+
 	//Muestra las promociones a sugerir al usuario dependiendo de sus gustos
 	public static void sugerirPromos(List<Promocion> promociones, Usuario usuario, boolean prefONo) {
-		int cont = 0;
-		for (Promocion promocion : promociones) {
-			if(promocion.costoPromocion() <= usuario.getPresupuesto() && promocion.tiempoPromocion() <= usuario.getTiempo()) {
-				cont++;
-			}
-		}	
-		if(cont > 0) {
-			if (prefONo) {
-				System.out.println("\nPromociones recomendadas para usted:");
-			} else {
-				System.out.println("\nOtras Promociones recomendadas para usted:");
-			}
-			mostrarPromociones(promociones, usuario);
-			System.out.println(
-					"_________________________________________________________________________________________________________________");
-			System.out.println("\nUsted tiene: " + usuario.getPresupuesto() + " monedas y " + usuario.getTiempo()
-					+ " hs disponibles.");
-			System.out.println(
-					"_________________________________________________________________________________________________________________\n");
-			System.out.println("\nSi desea comprar una promocion del listado ingrese su numero\nSino presione la tecla C");
+		if (prefONo) {
+			System.out.println("\nPromociones recomendadas para usted:");
+		} else {
+			System.out.println("\nOtras Promociones recomendadas para usted:");
 		}
+		
+		mostrarPromociones(promociones, usuario);
+		System.out.println(
+				"_________________________________________________________________________________________________________________");
+		System.out.println("\nUsted tiene: " + usuario.getPresupuesto() + " monedas y " + usuario.getTiempo()
+				+ " hs disponibles.");
+		System.out.println(
+				"_________________________________________________________________________________________________________________\n");
+		System.out.println("\nSi desea comprar una promocion del listado ingrese su numero\nSino presione la tecla C");
+
 	}
 	
 	//Muestra las atracciones a sugerir al usuario dependiendo de sus gustos

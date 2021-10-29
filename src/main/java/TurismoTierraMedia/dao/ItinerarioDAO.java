@@ -21,8 +21,7 @@ public class ItinerarioDAO {
 	//Crea un registro en la tabla itinerario con el id de usuario que lo compro
 	public void insertItinerario(Integer usuario_id) throws SQLException{
 		Connection connection = ConnectionProvider.getConnection();
-		String query = "INSERT or IGNORE INTO itinerario(\"usuario_id\") "
-				+ "VALUES (?)";
+		String query = "INSERT or IGNORE INTO itinerario(usuario_id) VALUES (?)";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1,usuario_id);
@@ -79,9 +78,8 @@ public class ItinerarioDAO {
 	public Itinerario findById(Integer id) throws SQLException {
 		Itinerario itinerario = null;
 		Connection connection = ConnectionProvider.getConnection();
+		
 		String query = "SELECT * FROM itinerario i "
-				+ "INNER JOIN itinerario_tiene_atraccion "
-				+ "INNER JOIN itinerario_tiene_promocion "
 				+ "WHERE i.usuario_id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
