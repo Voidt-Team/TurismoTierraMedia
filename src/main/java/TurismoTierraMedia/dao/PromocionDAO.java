@@ -17,6 +17,7 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
+		//AGREGAR que no muestre las que estan en itinerario promociones
 		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual \r\n"
 				+ "FROM usuario u JOIN atraccion a \r\n"
 				+ "JOIN promocion_tiene_atraccion pa \r\n"
@@ -42,7 +43,7 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		//ESTE NO ANDA
+		//AGREGAR que no muestre las que estan en itinerario promociones
 		String query = "SELECT DISTINCT p.id,p.nombre,p.absoluta,p.axb,p.porcentual "
 				+ "FROM usuario u JOIN atraccion a "
 				+ "JOIN promocion_tiene_atraccion pa "

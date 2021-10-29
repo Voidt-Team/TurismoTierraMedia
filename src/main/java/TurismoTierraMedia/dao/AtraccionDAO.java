@@ -26,7 +26,7 @@ public class AtraccionDAO {
 		preparedStatement.executeUpdate();
 	}
 
-	// Atracciones preferidas
+	// Atracciones preferidas//AGREGAR que no muestre las que estan en itinerario atracciones
 	public List<Atraccion> atraccionesPreferidas(Integer id) throws SQLException {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
@@ -49,7 +49,7 @@ public class AtraccionDAO {
 		return atracciones;
 	}
 
-	// Atracciones No preferidas
+	// Atracciones No preferidas//AGREGAR que no muestre las que estan en itinerario atracciones
 	public List<Atraccion> atraccionesNoPreferidas(Integer id) throws SQLException {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
