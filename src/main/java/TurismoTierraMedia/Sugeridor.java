@@ -316,14 +316,69 @@ public class Sugeridor {
 	public static void noMasCompras(Usuario usuario, int opcion, List<Usuario> listaUsuarios) throws SQLException {
 		System.out.println("No puedes realizar compras!");
 		ItinerarioDAO itinerario = new ItinerarioDAO();
-		// ItinerarioViejo.generarArchivoUsuario(usuario);
-		itinerario.buscarItinerarioPromociones(usuario.getIdItinerario());
-		itinerario.buscarItinerarioAtracciones(usuario.getIdItinerario());
+		List<Promocion> promosItinerario = itinerario.buscarItinerarioPromociones(usuario.getIdItinerario());
+		List<Atraccion> atraccItinerario = itinerario.buscarItinerarioAtracciones(usuario.getIdItinerario());
+		
+		if(!promosItinerario.isEmpty()) {
+			mostrarItinerarioP(promosItinerario);
+		}
+		if(!atraccItinerario.isEmpty()) {
+			mostrarItinerarioA(atraccItinerario);
+		}
 		opcion = 99999;
-		// ItinerarioViejo.mostrarItinerario(usuario);
+		
 		App.consola();
 	}
 
+
+	private static void mostrarItinerarioA(List<Atraccion> atraccItinerario) {
+		List<Atraccion> atraccionesCompradas = atraccItinerario;
+		System.out.println("\nAtracciones Compradas:");
+		double suma_costos = 0;
+		double suma_horas = 0;
+		for (Atraccion atraccion : atraccionesCompradas) {
+			suma_costos += atraccion.getCosto();
+			suma_horas += atraccion.getTiempo();
+			System.out.println(
+					"---------------------------------------------------------------------------------------------------------------------------------");
+			System.out.println("\nAtraccion: " + atraccion.getNombre() + ", precio: " + atraccion.getCosto()
+					+ " monedas, duracion: " + atraccion.getTiempo() + " hs.");
+		}
+		System.out.println(
+				"_________________________________________________________________________________________________________________________________");
+		System.out.println("\nCosto total de Atracciones: " + suma_costos + " monedas, tiempo necesario: " + suma_horas + " hs.");
+		System.out.println(
+				"=================================================================================================================================");
+
+	}
+
+	private static void mostrarItinerarioP(List<Promocion> promosItinerario) {
+		System.out.println(
+				"=================================================================================================================================");
+		System.out.println("\nA continuacion le detallamos el itinerario:");
+		double suma_costos = 0;
+		double suma_horas = 0;
+		List<Promocion> promocionesCompradas = promosItinerario;
+		System.out.println("\nPromociones Compradas:");
+		for (Promocion promo : promocionesCompradas) {
+			suma_costos += promo.costoPromocion();
+			suma_horas += promo.tiempoPromocion();
+			List<Atraccion> atraccionesPromo = promo.getLista_atracciones();
+			System.out.println(
+					"---------------------------------------------------------------------------------------------------------------------------------");
+			System.out.println("\nPromocion: " + promo.getNombre() + ", precio: " + promo.costoPromocion()
+					+ " monedas, duracion: " + promo.tiempoPromocion() + " hs., bonus: " + promo.ImprimirBonus());
+			System.out.println("\nAtracciones Incluidas:");
+			for (Atraccion atraccion : atraccionesPromo) {
+				System.out.println("\n* " + atraccion.getNombre());
+			}
+		}
+		System.out.println(
+				"_________________________________________________________________________________________________________________________________");
+		System.out.println("\nCosto total de Promociones: " + suma_costos + " monedas, tiempo necesario: " + suma_horas + " hs.");
+		System.out.println(
+				"=================================================================================================================================");
+	}
 
 	//Muestra las promociones a sugerir al usuario dependiendo de sus gustos
 	public static void sugerirPromos(List<Promocion> promociones, Usuario usuario, boolean prefONo) {

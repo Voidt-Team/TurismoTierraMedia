@@ -32,7 +32,7 @@ public class ItinerarioDAO {
 	//Crea un registro en la tabla itinerario_tiene_atraccion
 	public void insertItinerario(Atraccion at, Usuario u) throws SQLException {
 		// primero se agrega el registro a itinerario
-		insertItinerario(u.getId());
+		//insertItinerario(u.getId());
 		// se llama a findbyid para obtener el itinerario generado para el usuario
 		Itinerario i = findById(u.getId());
 		// se crea un objeto usuarioDAO para acceder a los metodos de usuarioDAO y actualizar el usuario.itinerario_id
@@ -54,7 +54,7 @@ public class ItinerarioDAO {
 	//Crea un registro en la tabla itinerario_tiene_promocion
 	public void insertItinerario(Promocion pr, Usuario u) throws SQLException {
 		// primero se agrega el registro a itinerario
-		insertItinerario(u.getId());
+		//insertItinerario(u.getId());
 		// se llama a findbyid para obtener el itinerario generado para el usuario
 		Itinerario i = findById(u.getId());
 		// se crea un objeto usuarioDAO para acceder a los metodos de usuarioDAO y actualizar el usuario.itinerario_id
