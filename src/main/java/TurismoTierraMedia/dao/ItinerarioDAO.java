@@ -104,31 +104,52 @@ public class ItinerarioDAO {
 	}
 
 
-	public List<Promocion> buscarItinerarioPromociones(Usuario usuario) {
+	//Devuelve la lista de promociones del itinerario de un usuario
+	public List<Promocion> buscarItinerarioPromociones(Integer itinerario_id) throws SQLException {
 		List<Promocion> promociones =  new ArrayList<Promocion>();
+		PromocionDAO promocionDAO = new PromocionDAO();
 		Connection connection = ConnectionProvider.getConnection();
 		
-		String query = "SELECT * FROM itinerario i "
-				+ "WHERE i.usuario_id = ?";
+		String query = "SELECT P.* FROM promocion P "
+				+ "INNER JOIN itinerario_tiene_promocion IP "
+				+ "INNER JOIN itinerario I "
+				+ "WHERE P.id = IP.promocion_id "
+				+ "AND IP.itinerario_id = I.id "
+				+ "AND I.id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		preparedStatement.setInt(1, id);
+		preparedStatement.setInt(1, itinerario_id);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		if (resultSet.next()) {
-			itinerario = toItinerario(resultSet);
+			Promocion promocion = promocionDAO.toPromocion(resultSet);
+			promociones.add(promocion);
 		}
-
-		return itinerario;
-		
+		return promociones;
 	}
 
-
-	public void buscarItinerarioAtracciones(Usuario usuario) {
-		// TODO Auto-generated method stub
+	//Devuelve la lista de atracciones del itinerario de un usuario
+	public List<Atraccion> buscarItinerarioAtracciones(Integer itinerario_id) throws SQLException {
+		List<Atraccion> atracciones =  new ArrayList<Atraccion>();
+		AtraccionDAO atraccionDAO = new AtraccionDAO();
+		Connection connection = ConnectionProvider.getConnection();
 		
+		String query = "SELECT A.* FROM atraccion A "
+				+ "INNER JOIN itinerario_tiene_atraccion IA "
+				+ "INNER JOIN itinerario I "
+				+ "WHERE A.id = IA.atraccion_id "
+				+ "AND IA.itinerario_id = I.id "
+				+ "AND I.id = ?";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1, itinerario_id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.next()) {
+			Atraccion atraccion = atraccionDAO.toAtraccion(resultSet);
+			atracciones.add(atraccion);
+		}
+		return atracciones;
 	}
 
-
-	
 }

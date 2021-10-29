@@ -317,8 +317,8 @@ public class Sugeridor {
 		System.out.println("No puedes realizar compras!");
 		ItinerarioDAO itinerario = new ItinerarioDAO();
 		// ItinerarioViejo.generarArchivoUsuario(usuario);
-		itinerario.buscarItinerarioPromociones(usuario);
-		itinerario.buscarItinerarioAtracciones(usuario);
+		itinerario.buscarItinerarioPromociones(usuario.getIdItinerario());
+		itinerario.buscarItinerarioAtracciones(usuario.getIdItinerario());
 		opcion = 99999;
 		// ItinerarioViejo.mostrarItinerario(usuario);
 		App.consola();
