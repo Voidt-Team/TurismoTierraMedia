@@ -12,12 +12,13 @@ import TurismoTierraMedia.dao.UsuarioDAO;
 public class App {
 	public static void consola() throws SQLException { 
 		UsuarioDAO usuarios = new UsuarioDAO();
-		List<Usuario> lusuarios = usuarios.findAll();
+		List<Usuario> lusuarios;
 		ItinerarioDAO itinDAO = new ItinerarioDAO();
 		Itinerario itin = null;
 		
 		int opcion = 1;
 		while (opcion != 99999) {
+			lusuarios = usuarios.findAll();
 			// Si no hay mas usuarios se finaliza la ejecucion del programa
 			if (lusuarios.isEmpty()) {
 				System.out.println("--------- SE HAN PROCESADO TODOS LOS USUARIOS ---------");

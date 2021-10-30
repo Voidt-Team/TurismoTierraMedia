@@ -381,10 +381,6 @@ public class Sugeridor {
 		
 		mostrarPromociones(promociones, usuario);
 		System.out.println(
-				"_________________________________________________________________________________________________________________");
-		System.out.println("\nUsted tiene: " + usuario.getPresupuesto() + " monedas y " + usuario.getTiempo()
-				+ " hs disponibles.");
-		System.out.println(
 				"_________________________________________________________________________________________________________________\n");
 		System.out.println("\nSi desea comprar una promocion del listado ingrese su numero\nSino presione la tecla C");
 
@@ -398,10 +394,6 @@ public class Sugeridor {
 			System.out.println("\nOtras Atracciones recomendadas para usted:");
 		}
 		mostrarAtracciones(atracciones);
-		System.out.println(
-				"_________________________________________________________________________________________________________________");
-		System.out.println("\nUsted tiene: " + usuario.getPresupuesto() + " monedas y " + usuario.getTiempo()
-				+ " hs disponibles.");
 		System.out.println(
 				"_________________________________________________________________________________________________________________\n");
 		System.out.println("\nSi desea comprar una atraccion del listado ingrese su numero\nSino presione la tecla C");
