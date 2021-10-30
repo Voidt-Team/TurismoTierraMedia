@@ -36,8 +36,8 @@ public class ItinerarioDAO {
 		// se llama a findbyid para obtener el itinerario generado para el usuario
 		Itinerario i = findById(u.getId());
 		// se crea un objeto usuarioDAO para acceder a los metodos de usuarioDAO y actualizar el usuario.itinerario_id
-		UsuarioDAO udao = new UsuarioDAO();
-		udao.actualizarUsuario(u, i.getId());
+		//UsuarioDAO udao = new UsuarioDAO();
+		//udao.actualizarUsuario(u, i.getId());
 
 		// con esos datos mas la atraccion elegida se agrega el registro a
 		// itinerario_tiene_atraccon
@@ -58,8 +58,8 @@ public class ItinerarioDAO {
 		// se llama a findbyid para obtener el itinerario generado para el usuario
 		Itinerario i = findById(u.getId());
 		// se crea un objeto usuarioDAO para acceder a los metodos de usuarioDAO y actualizar el usuario.itinerario_id
-		UsuarioDAO udao = new UsuarioDAO();
-		udao.actualizarUsuario(u, i.getId());
+		//UsuarioDAO udao = new UsuarioDAO();
+		//udao.actualizarUsuario(u, i.getId());
 				
 		// con esos datos mas la promocion elegida se agrega el registro a
 		// promocion

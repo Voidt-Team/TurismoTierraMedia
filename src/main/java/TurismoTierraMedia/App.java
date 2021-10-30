@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Scanner;
 import TurismoTierraMedia.Usuario;
+import TurismoTierraMedia.dao.ItinerarioDAO;
 import TurismoTierraMedia.dao.UsuarioDAO;
 
 public class App {
 	public static void consola() throws SQLException { 
 		UsuarioDAO usuarios = new UsuarioDAO();
 		List<Usuario> lusuarios = usuarios.findAll();
+		ItinerarioDAO itinDAO = new ItinerarioDAO();
+		Itinerario itin = null;
 		
 		int opcion = 1;
 		while (opcion != 99999) {
@@ -33,11 +36,17 @@ public class App {
 			} else {
 				opcion = lusuarios.size() + 1;
 			}
-
 			try {
 				System.out.println("\nHas elegido ser: " + lusuarios.get(opcion - 1).getNombre());
+				// llamamos al metodo que genera el itinerario para el usuario
+				itinDAO.insertItinerario(lusuarios.get(opcion - 1).getId());
+				//recuperamos el objeto itinerario para el usuario seleccionado
+				itin = itinDAO.findById(lusuarios.get(opcion - 1).getId());
+				//actualizamos la tabla usuarios con el id itinerario recien creado
+				usuarios.actualizarUsuario(lusuarios.get(opcion - 1), itin.getId());
+				//actualizamos el estado del objeto usuario seleccionado con el id de itinerario para ese usuario
+				lusuarios.get(opcion - 1).setIdItinerario(itin.getId());
 				// El objeto creado se usa para llamar al metodo sugerir
-				
 				Sugeridor.sugerir(lusuarios.get(opcion - 1),lusuarios);
 				opcion = 99999;
 			} catch (IndexOutOfBoundsException ex) {
