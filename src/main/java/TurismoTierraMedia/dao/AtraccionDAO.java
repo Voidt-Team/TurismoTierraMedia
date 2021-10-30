@@ -59,21 +59,16 @@ public class AtraccionDAO {
 		return atracciones;
 	}
 
-	// Atracciones No preferidas//AGREGAR que no muestre las que estan en itinerario atracciones
+	// Atracciones No preferidas
 	public List<Atraccion> atraccionesNoPreferidas(Integer id) throws SQLException {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U "
-				+ "	INNER JOIN tipo_de_atraccion TA "
-				+ "	INNER JOIN itinerario_tiene_atraccion IA "
-				+ "	WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id "
-				+ "	AND A.id <> IA.atraccion_id "
-				+ "	AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?"
-				+ "	ORDER BY A.costo DESC, A.tiempo DESC";
+		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA INNER JOIN itinerario_tiene_atraccion IA WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id AND A.id <> IA.atraccion_id AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ? EXCEPT  SELECT DISTINCT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA INNER join itinerario_tiene_atraccion ia inner join itinerario it WHERE U.id=it.usuario_id and it.id=ia.itinerario_id and TA.id = A.tipo_atraccion_id and ia.atraccion_id = A.id and U.id= ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
+		preparedStatement.setInt(2, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		while (resultSet.next()) {
