@@ -63,7 +63,7 @@ public class Sugeridor {
 				sugerirAtraccionesNoPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
 						atraccNoPreferidas, opcion, listaUsuarios);
 			} else {
-				noMasCompras(usuario, opcion, listaUsuarios);
+				noMasCompras(usuario, opcion);
 			}
 		}
 		
@@ -93,14 +93,12 @@ public class Sugeridor {
 						
 						//ACA ESTA LO DEL ITINERARIO
 						Integer itinerario_id = usuario.getIdItinerario();
-						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
 							usuario.setIdItinerario(itinerario_id);
-							System.out.println("ITTTTT2:" + itinerario_id);
 						}
 						
 						//Insertar atraccion de un itinerario
@@ -154,14 +152,12 @@ public class Sugeridor {
 						
 						//ACA ESTA LO DEL ITINERARIO
 						Integer itinerario_id = usuario.getIdItinerario();
-						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
 							usuario.setIdItinerario(itinerario_id);
-							System.out.println("ITTTTT2:" + itinerario_id);
 						}
 						
 						//Insertar atraccion de un itinerario
@@ -213,14 +209,12 @@ public class Sugeridor {
 
 						//ACA ESTA LO DEL ITINERARIO
 						Integer itinerario_id = usuario.getIdItinerario();
-						System.out.println("ITTTTT:" + itinerario_id);
-						
+
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
 							usuario.setIdItinerario(itinerario_id);
-							System.out.println("ITTTTT2:" + itinerario_id);
 						}
 						
 						//Insertar atraccion de un itinerario
@@ -273,14 +267,12 @@ public class Sugeridor {
 						
 						//ACA ESTA LO DEL ITINERARIO
 						Integer itinerario_id = usuario.getIdItinerario();
-						System.out.println("ITTTTT:" + itinerario_id);
 						
 						if(itinerario_id == null) {
 							//Insert de itinerario
 							itinerario.insertItinerario(usuario.getId());
 							itinerario_id = itinerario.findById(usuario.getId()).getId();
 							usuario.setIdItinerario(itinerario_id);
-							System.out.println("ITTTTT2:" + itinerario_id);
 						}
 						
 						//Insertar atraccion de un itinerario
@@ -313,7 +305,7 @@ public class Sugeridor {
 
 	
 	//------------------------------Metodo para cuando ya no se puede comprar mas--------------------------
-	public static void noMasCompras(Usuario usuario, int opcion, List<Usuario> listaUsuarios) throws SQLException {
+	public static void noMasCompras(Usuario usuario, int opcion) throws SQLException {
 		System.out.println("No puedes realizar compras!");
 		ItinerarioDAO itinerario = new ItinerarioDAO();
 		List<Promocion> promosItinerario = itinerario.buscarItinerarioPromociones(usuario.getIdItinerario());
@@ -326,7 +318,6 @@ public class Sugeridor {
 			mostrarItinerarioA(atraccItinerario);
 		}
 		opcion = 99999;
-		
 		App.consola();
 	}
 
