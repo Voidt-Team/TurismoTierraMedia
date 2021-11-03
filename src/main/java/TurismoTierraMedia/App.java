@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Scanner;
-import TurismoTierraMedia.Usuario;
 import TurismoTierraMedia.dao.ItinerarioDAO;
 import TurismoTierraMedia.dao.UsuarioDAO;
 
@@ -19,11 +18,7 @@ public class App {
 		int opcion = 1;
 		while (opcion != 99999) {
 			lusuarios = usuarios.findAll();
-			// Si no hay mas usuarios se finaliza la ejecucion del programa
-			if (lusuarios.isEmpty()) {
-				System.out.println("--------- SE HAN PROCESADO TODOS LOS USUARIOS ---------");
-				System.exit(0);
-			}
+			
 			// Se crea el menu de opciones
 			System.out.println("\nBienvenido a la tierra media!\nQue personaje te gustaria ser?");
 			imprimirUsuarios(lusuarios);
@@ -39,29 +34,29 @@ public class App {
 			}
 			try {
 				System.out.println("\nHas elegido ser: " + lusuarios.get(opcion - 1).getNombre());
-				// llamamos al metodo que genera el itinerario para el usuario
+				//Se llama al metodo que genera el itinerario para el usuario
 				itinDAO.insertItinerario(lusuarios.get(opcion - 1).getId());
-				//recuperamos el objeto itinerario para el usuario seleccionado
+				//Se recupera el objeto itinerario para el usuario seleccionado
 				itin = itinDAO.findById(lusuarios.get(opcion - 1).getId());
-				//actualizamos la tabla usuarios con el id itinerario recien creado
+				//Se actualiza la tabla usuarios con el id itinerario recien creado
 				usuarios.actualizarUsuario(lusuarios.get(opcion - 1), itin.getId());
-				//actualizamos el estado del objeto usuario seleccionado con el id de itinerario para ese usuario
+				//Se actualiza el estado del objeto usuario seleccionado con el id de itinerario para ese usuario
 				lusuarios.get(opcion - 1).setIdItinerario(itin.getId());
-				// El objeto creado se usa para llamar al metodo sugerir
+				//El objeto creado se usa para llamar al metodo sugerir
 				Sugeridor.sugerir(lusuarios.get(opcion - 1),lusuarios);
 				opcion = 99999;
 			} catch (IndexOutOfBoundsException ex) {
 				System.out
-						.println("El valor ingresado solamente puede ser un entero entre 1 y " + lusuarios.size());
+						.println("El valor ingresado debe ser un entero entre 1 y " + lusuarios.size());
 			}
 		}
 	}
 	public static void imprimirUsuarios(List<Usuario> lusuarios) {
 		int p= 0;
-		// creamos el iterator para recorrer la lista sin ordenar
+		//Se crea el iterator para recorrer la lista sin ordenar
 		Iterator<Usuario> itUsuarios = lusuarios.iterator();
 
-		// imprime la lista sin ordenar
+		//Se imprime la lista de usuarios
 		while (itUsuarios.hasNext()) {
 			Usuario usuario = itUsuarios.next();
 			p++;

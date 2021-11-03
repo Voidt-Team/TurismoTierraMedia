@@ -17,7 +17,24 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT DISTINCT p.* from usuario u JOIN atraccion a join promocion_tiene_atraccion pa join promocion p where u.tipo_atraccion_id = a.tipo_atraccion_id and p.id = pa.promocion_id and pa.atraccion_id = a.id and a.cupo>0 and u.id=? EXCEPT SELECT p.* from usuario u join itinerario i join itinerario_tiene_promocion ip join promocion p where p.id=ip.promocion_id and u.id=? and u.id = i.usuario_id and i.id = ip.itinerario_id";
+		String query = "SELECT DISTINCT p.* FROM usuario u "
+				+ "JOIN atraccion a "
+				+ "JOIN promocion_tiene_atraccion pa "
+				+ "JOIN promocion p "
+				+ "WHERE u.tipo_atraccion_id = a.tipo_atraccion_id "
+				+ "AND p.id = pa.promocion_id "
+				+ "AND pa.atraccion_id = a.id "
+				+ "AND a.cupo > 0 "
+				+ "AND u.id = ? "
+				+ "EXCEPT "
+				+ "SELECT p.* from usuario u "
+				+ "JOIN itinerario i "
+				+ "JOIN itinerario_tiene_promocion ip "
+				+ "JOIN promocion p "
+				+ "WHERE p.id = ip.promocion_id "
+				+ "AND u.id = ? "
+				+ "AND u.id = i.usuario_id "
+				+ "AND i.id = ip.itinerario_id";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
@@ -37,7 +54,24 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT DISTINCT p.* from usuario u JOIN atraccion a join promocion_tiene_atraccion pa join promocion p where u.tipo_atraccion_id <> a.tipo_atraccion_id and p.id = pa.promocion_id and pa.atraccion_id = a.id and a.cupo>0 and u.id=? EXCEPT SELECT p.* from usuario u join itinerario i join itinerario_tiene_promocion ip join promocion p where p.id=ip.promocion_id and u.id=? and u.id = i.usuario_id and i.id = ip.itinerario_id";
+		String query = "SELECT DISTINCT p.* FROM usuario u "
+				+ "JOIN atraccion a "
+				+ "JOIN promocion_tiene_atraccion pa "
+				+ "JOIN promocion p "
+				+ "WHERE u.tipo_atraccion_id <> a.tipo_atraccion_id "
+				+ "AND p.id = pa.promocion_id "
+				+ "AND pa.atraccion_id = a.id "
+				+ "AND a.cupo > 0 "
+				+ "AND u.id = ? "
+				+ "EXCEPT "
+				+ "SELECT p.* FROM usuario u "
+				+ "JOIN itinerario i "
+				+ "JOIN itinerario_tiene_promocion ip "
+				+ "JOIN promocion p "
+				+ "WHERE p.id = ip.promocion_id "
+				+ "AND u.id = ? "
+				+ "AND u.id = i.usuario_id "
+				+ "AND i.id = ip.itinerario_id";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);

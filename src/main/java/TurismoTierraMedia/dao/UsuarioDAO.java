@@ -19,7 +19,8 @@ public class UsuarioDAO {
 	public void actualizarUsuario(Usuario usu, Integer itinerario_id)throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();
 		
-		String query = "UPDATE usuario set presupuesto=?, tiempo=?, itinerario_id=? where id=?";
+		String query = "UPDATE usuario set presupuesto = ?, tiempo = ?, itinerario_id = ? "
+				+ "WHERE id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		
@@ -27,7 +28,6 @@ public class UsuarioDAO {
 		preparedStatement.setDouble(2, usu.getTiempo()); 
 		preparedStatement.setInt(3, itinerario_id);
 		preparedStatement.setInt(4, usu.getId());
-		
 		preparedStatement.executeUpdate();
 	}
 	
@@ -58,7 +58,6 @@ public class UsuarioDAO {
 		
 		preparedStatement.setDouble(1, usu.getPresupuesto()-promocion.costoPromocion()); 
 		preparedStatement.setDouble(2, usu.getTiempo()-promocion.tiempoPromocion()); 
-		//Ya no se como arreglar el error de la linea que sigue
 		preparedStatement.setInt(3, itinerario_id);
 		preparedStatement.setInt(4, usu.getId());
 		

@@ -2,8 +2,6 @@ package TurismoTierraMedia;
 
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,19 +34,18 @@ public class Sugeridor {
 
 		PromocionDAO promociones = new PromocionDAO();
 		AtraccionDAO atracciones = new AtraccionDAO();
-		ItinerarioDAO itinerario = new ItinerarioDAO();
-
-		sugerirPromos(promosPreferidas, usuario, true);
+		
+		
 		while (!promosPreferidas.isEmpty()) {
-
+			sugerirPromos(promosPreferidas, usuario, true);
 			Scanner sc = new Scanner(new InputStreamReader(System.in));
 			String entrada = sc.next();
 
-			// consultar si cancela la compra o si solo no quiere promociones
+			//Consultar si cancela la compra 
 			if (entrada.toUpperCase().compareTo("F") == 0) {
 				noMasCompras(usuario);
 			}
-
+			//Esta opcion es por si no quiere comprar promociones
 			if (entrada.toUpperCase().compareTo("C") == 0) {
 				sugerirAtraccionesPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
 						atraccNoPreferidas, opcion, listaUsuarios);
@@ -57,25 +54,9 @@ public class Sugeridor {
 				if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
 					opcion = (int) Double.parseDouble(entrada);
 
-					// ACA ESTA LO DEL ITINERARIO
-					Integer itinerario_id = usuario.getIdItinerario();
-
-					if (itinerario_id == null) {
-						// Insert de itinerario
-						itinerario.insertItinerario(usuario.getId());
-						itinerario_id = itinerario.findById(usuario.getId()).getId();
-						usuario.setIdItinerario(itinerario_id);
-					}
-
-					// Insertar atraccion de un itinerario
-					itinerario.insertItinerario(promosPreferidas.get(opcion - 1), usuario);
-					Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
-					itinerarioOBJ.setId(itinerario_id);
-					itinerarioOBJ.setUsuario_id(usuario.getId());
-					itinerarioOBJ.getlPromociones().add(promosPreferidas.get(opcion - 1));
-
-					actualizarPromo(usuario, promosPreferidas.get(opcion - 1), itinerario_id);
-
+					//Aca se llama al metodo que actualiza el itinerario y ahi dentro al que actualiza la promocion y el usuario
+					actualizarItinerarioPromocion(usuario,promosPreferidas.get(opcion-1));
+					
 					// Se filtra nuevamente las listas para volver a sugerir al usuario las listas
 					// actualizadas
 					promosPreferidas = promociones.promocionesPreferidas(usuario.getId());
@@ -101,6 +82,7 @@ public class Sugeridor {
 		}
 	}
 
+	
 	// ------------------------------Metodo que sugiere las atracciones
 	// preferidas--------------------------
 	public static void sugerirAtraccionesPreferidas(Usuario usuario, List<Promocion> promosPreferidas,
@@ -109,7 +91,6 @@ public class Sugeridor {
 
 		PromocionDAO promociones = new PromocionDAO();
 		AtraccionDAO atracciones = new AtraccionDAO();
-		ItinerarioDAO itinerario = new ItinerarioDAO();
 
 		sugerirAtracciones(atraccPreferidas, usuario, true);
 
@@ -128,25 +109,9 @@ public class Sugeridor {
 			try {
 				if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
 					opcion = (int) Double.parseDouble(entrada);
-
-					// ACA ESTA LO DEL ITINERARIO
-					Integer itinerario_id = usuario.getIdItinerario();
-
-					if (itinerario_id == null) {
-						// Insert de itinerario
-						itinerario.insertItinerario(usuario.getId());
-						itinerario_id = itinerario.findById(usuario.getId()).getId();
-						usuario.setIdItinerario(itinerario_id);
-					}
-
-					// Insertar atraccion de un itinerario
-					itinerario.insertItinerario(atraccPreferidas.get(opcion - 1), usuario);
-					Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
-					itinerarioOBJ.setId(itinerario_id);
-					itinerarioOBJ.setUsuario_id(usuario.getId());
-					itinerarioOBJ.getlAtracciones().add(atraccPreferidas.get(opcion - 1));
-
-					actualizarAtraccion(usuario, atraccPreferidas.get(opcion - 1), itinerario_id);
+					
+					//Aca se llama al metodo que actualiza el itinerario y ahi dentro al que actualiza la promocion y el usuario
+					actualizarItinerarioAtraccion(usuario,atraccPreferidas.get(opcion - 1));
 
 					promosPreferidas = promociones.promocionesPreferidas(usuario.getId());
 					promosNoPreferidas = promociones.promocionesNoPreferidas(usuario.getId());
@@ -171,6 +136,8 @@ public class Sugeridor {
 
 	}
 
+
+
 	// ------------------------------Metodo que sugiere las promos NO
 	// preferidas--------------------------
 	public static void sugerirPromocionesNoPreferidas(Usuario usuario, List<Promocion> promosPreferidas,
@@ -179,7 +146,6 @@ public class Sugeridor {
 
 		PromocionDAO promociones = new PromocionDAO();
 		AtraccionDAO atracciones = new AtraccionDAO();
-		ItinerarioDAO itinerario = new ItinerarioDAO();
 
 		sugerirPromos(promosNoPreferidas, usuario, false);
 		
@@ -200,24 +166,8 @@ public class Sugeridor {
 				if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
 					opcion = (int) Double.parseDouble(entrada);
 
-					// ACA ESTA LO DEL ITINERARIO
-					Integer itinerario_id = usuario.getIdItinerario();
-
-					if (itinerario_id == null) {
-						// Insert de itinerario
-						itinerario.insertItinerario(usuario.getId());
-						itinerario_id = itinerario.findById(usuario.getId()).getId();
-						usuario.setIdItinerario(itinerario_id);
-					}
-
-					// Insertar atraccion de un itinerario
-					itinerario.insertItinerario(promosNoPreferidas.get(opcion - 1), usuario);
-					Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
-					itinerarioOBJ.setId(itinerario_id);
-					itinerarioOBJ.setUsuario_id(usuario.getId());
-					itinerarioOBJ.getlPromociones().add(promosNoPreferidas.get(opcion - 1));
-
-					actualizarPromo(usuario, promosNoPreferidas.get(opcion - 1), itinerario_id);
+					//Aca se llama al metodo que actualiza el itinerario y ahi dentro al que actualiza la promocion y el usuario
+					actualizarItinerarioPromocion(usuario,promosNoPreferidas.get(opcion-1));
 
 					promosPreferidas = promociones.promocionesPreferidas(usuario.getId());
 					promosNoPreferidas = promociones.promocionesNoPreferidas(usuario.getId());
@@ -251,7 +201,6 @@ public class Sugeridor {
 
 		PromocionDAO promociones = new PromocionDAO();
 		AtraccionDAO atracciones = new AtraccionDAO();
-		ItinerarioDAO itinerario = new ItinerarioDAO();
 
 		sugerirAtracciones(atraccNoPreferidas, usuario, false);
 		
@@ -271,24 +220,8 @@ public class Sugeridor {
 				if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
 					opcion = (int) Double.parseDouble(entrada);
 
-					// ACA ESTA LO DEL ITINERARIO
-					Integer itinerario_id = usuario.getIdItinerario();
-
-					if (itinerario_id == null) {
-						// Insert de itinerario
-						itinerario.insertItinerario(usuario.getId());
-						itinerario_id = itinerario.findById(usuario.getId()).getId();
-						usuario.setIdItinerario(itinerario_id);
-					}
-
-					// Insertar atraccion de un itinerario
-					itinerario.insertItinerario(atraccNoPreferidas.get(opcion - 1), usuario);
-					Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
-					itinerarioOBJ.setId(itinerario_id);
-					itinerarioOBJ.setUsuario_id(usuario.getId());
-					itinerarioOBJ.getlAtracciones().add(atraccNoPreferidas.get(opcion - 1));
-
-					actualizarAtraccion(usuario, atraccNoPreferidas.get(opcion - 1), itinerario_id);
+					//Aca se llama al metodo que actualiza el itinerario y ahi dentro al que actualiza la promocion y el usuario
+					actualizarItinerarioAtraccion(usuario,atraccPreferidas.get(opcion - 1));
 
 					promosPreferidas = promociones.promocionesPreferidas(usuario.getId());
 					promosNoPreferidas = promociones.promocionesNoPreferidas(usuario.getId());
@@ -312,6 +245,61 @@ public class Sugeridor {
 		}
 
 	}
+	
+	
+	//Metodo para actualizar itinerario de atracciones
+	private static void actualizarItinerarioAtraccion(Usuario usuario, Atraccion atraccion) throws SQLException {
+		// ACA ESTA LO DEL ITINERARIO
+		ItinerarioDAO itinerario = new ItinerarioDAO();
+		Integer itinerario_id = usuario.getIdItinerario();
+
+		if (itinerario_id == null) {
+			// Insert de itinerario
+			itinerario.insertItinerario(usuario.getId());
+			itinerario_id = itinerario.findById(usuario.getId()).getId();
+			usuario.setIdItinerario(itinerario_id);
+		}
+
+		// Insertar atraccion de un itinerario
+		itinerario.insertItinerario(atraccion, usuario);
+		Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
+		itinerarioOBJ.setId(itinerario_id);
+		itinerarioOBJ.setUsuario_id(usuario.getId());
+		itinerarioOBJ.setCosto(itinerarioOBJ.getCosto() + atraccion.getCosto());
+		itinerarioOBJ.setTiempo(itinerarioOBJ.getTiempo() + atraccion.getTiempo());
+		itinerarioOBJ.getlAtracciones().add(atraccion);
+		//Aca se llaman a los otros metodos
+		actualizarAtraccion(usuario, atraccion, itinerario_id);
+		//Aca faltaria actualizar el valor del itinerario en costo y tiempo
+	}
+	
+	//Metodo para actualizar itinerario de promociones
+	private static void actualizarItinerarioPromocion(Usuario usuario, Promocion promocion) throws SQLException {
+		// ACA ESTA LO DEL ITINERARIO
+		ItinerarioDAO itinerario = new ItinerarioDAO();
+		Integer itinerario_id = usuario.getIdItinerario();
+
+		if (itinerario_id == null) {
+			// Insert de itinerario
+			itinerario.insertItinerario(usuario.getId());
+			itinerario_id = itinerario.findById(usuario.getId()).getId();
+			usuario.setIdItinerario(itinerario_id);
+		}
+
+		// Insertar atraccion de un itinerario
+		itinerario.insertItinerario(promocion, usuario);
+		Itinerario itinerarioOBJ = itinerario.findById(usuario.getId());
+		itinerarioOBJ.setId(itinerario_id);
+		itinerarioOBJ.setUsuario_id(usuario.getId());
+		itinerarioOBJ.setCosto(itinerarioOBJ.getCosto() + promocion.costoPromocion());
+		itinerarioOBJ.setTiempo(itinerarioOBJ.getTiempo() + promocion.tiempoPromocion());
+		itinerarioOBJ.getlPromociones().add(promocion);
+		//Aca se llaman a los otros metodos
+		actualizarPromo(usuario, promocion, itinerario_id);
+		//Aca faltaria actualizar el valor del itinerario en costo y tiempo
+	}
+
+	
 
 	// ------------------------------Metodo para cuando ya no se puede comprar
 	// mas--------------------------
@@ -384,15 +372,13 @@ public class Sugeridor {
 
 	// Muestra las promociones a sugerir al usuario dependiendo de sus gustos
 	public static void sugerirPromos(List<Promocion> promociones, Usuario usuario, boolean prefONo) {
-
-		mostrarPromociones(promociones, usuario);
-
 		if (!promociones.isEmpty()) {
 			if (prefONo) {
 				System.out.println("\nPromociones recomendadas para usted:");
 			} else {
 				System.out.println("\nOtras Promociones recomendadas para usted:");
 			}
+			mostrarPromociones(promociones, usuario);
 
 			System.out.println(
 					"_________________________________________________________________________________________________________________\n");

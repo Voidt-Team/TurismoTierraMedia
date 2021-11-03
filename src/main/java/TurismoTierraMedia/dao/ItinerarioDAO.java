@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.time.LocalDateTime;
 import TurismoTierraMedia.Atraccion;
-import TurismoTierraMedia.dao.AtraccionDAO;
 import TurismoTierraMedia.Itinerario;
 import TurismoTierraMedia.Promocion;
 import TurismoTierraMedia.Usuario;
@@ -75,7 +72,7 @@ public class ItinerarioDAO {
 	
 
 	//Devuelve un itinerario filtrado por id de usuario
-	public Itinerario findById(Integer id) throws SQLException {
+	public Itinerario findById(Integer id_usuario) throws SQLException {
 		Itinerario itinerario = null;
 		Connection connection = ConnectionProvider.getConnection();
 		
@@ -83,7 +80,7 @@ public class ItinerarioDAO {
 				+ "WHERE i.usuario_id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
-		preparedStatement.setInt(1, id);
+		preparedStatement.setInt(1, id_usuario);
 		ResultSet resultSet = preparedStatement.executeQuery();
 
 		if (resultSet.next()) {
@@ -99,8 +96,10 @@ public class ItinerarioDAO {
 		Integer usuario_id = resultSet.getInt("usuario_id");
 		List<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 		List<Promocion> lista_promociones = new ArrayList<Promocion>();
+		Double tiempo = resultSet.getDouble("tiempo"); 
+		Double costo = resultSet.getDouble("costo"); 
 	
-		return new Itinerario(id, usuario_id, lista_atracciones, lista_promociones);
+		return new Itinerario(id, usuario_id, lista_atracciones, lista_promociones, tiempo, costo);
 	}
 
 

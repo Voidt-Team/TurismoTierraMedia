@@ -33,18 +33,27 @@ public class AtraccionDAO {
 
 		
 		//esta funciona...
-		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion \r\n"
-				+ "FROM atraccion A INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA \r\n"
-				+ "WHERE A.tipo_atraccion_id = U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ?\r\n"
-				+ "EXCEPT \r\n"
-				+ "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion \r\n"
-				+ "FROM atraccion A INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA INNER join itinerario_tiene_atraccion ia inner join itinerario it\r\n"
-				+ "WHERE U.id=it.usuario_id \r\n"
-				+ "and it.id=ia.itinerario_id  \r\n"
-				+ "and A.tipo_atraccion_id = U.tipo_atraccion_id \r\n"
-				+ "and TA.id = A.tipo_atraccion_id \r\n"
-				+ "and ia.atraccion_id = A.id\r\n"
-				+ "and U.id= ?";
+		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
+				+ "FROM atraccion A INNER JOIN usuario U "
+				+ "INNER JOIN tipo_de_atraccion TA "
+				+ "WHERE A.tipo_atraccion_id = U.tipo_atraccion_id "
+				+ "AND TA.id = A.tipo_atraccion_id "
+				+ "AND A.costo <= U.presupuesto "
+				+ "AND A.tiempo <= U.tiempo "
+				+ "AND U.id = ? "
+				+ "EXCEPT "
+				+ "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
+				+ "FROM atraccion A "
+				+ "INNER JOIN usuario U "
+				+ "INNER JOIN tipo_de_atraccion TA "
+				+ "INNER JOIN itinerario_tiene_atraccion ia "
+				+ "INNER JOIN itinerario it "
+				+ "WHERE U.id = it.usuario_id "
+				+ "AND it.id=ia.itinerario_id  "
+				+ "AND A.tipo_atraccion_id = U.tipo_atraccion_id "
+				+ "AND TA.id = A.tipo_atraccion_id "
+				+ "AND ia.atraccion_id = A.id "
+				+ "AND U.id = ? ";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
@@ -64,7 +73,28 @@ public class AtraccionDAO {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
 
-		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA INNER JOIN itinerario_tiene_atraccion IA WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id and TA.id = A.tipo_atraccion_id AND A.id <> IA.atraccion_id AND A.costo <= U.presupuesto and A.tiempo <= U.tiempo and U.id = ? EXCEPT  SELECT DISTINCT A.*, TA.nombre as tipo_atraccion FROM atraccion A INNER JOIN usuario U INNER JOIN tipo_de_atraccion TA INNER join itinerario_tiene_atraccion ia inner join itinerario it WHERE U.id=it.usuario_id and it.id=ia.itinerario_id and TA.id = A.tipo_atraccion_id and ia.atraccion_id = A.id and U.id= ?";
+		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
+				+ "FROM atraccion A "
+				+ "INNER JOIN usuario U "
+				+ "INNER JOIN tipo_de_atraccion TA "
+				+ "INNER JOIN itinerario_tiene_atraccion IA "
+				+ "WHERE A.tipo_atraccion_id <> U.tipo_atraccion_id "
+				+ "AND TA.id = A.tipo_atraccion_id "
+				+ "AND A.id <> IA.atraccion_id "
+				+ "AND A.costo <= U.presupuesto "
+				+ "AND A.tiempo <= U.tiempo "
+				+ "AND U.id = ? "
+				+ "EXCEPT  "
+				+ "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
+				+ "FROM atraccion A INNER JOIN usuario U "
+				+ "INNER JOIN tipo_de_atraccion TA "
+				+ "INNER JOIN itinerario_tiene_atraccion ia "
+				+ "INNER JOIN itinerario it "
+				+ "WHERE U.id = it.usuario_id "
+				+ "AND it.id = ia.itinerario_id "
+				+ "AND TA.id = A.tipo_atraccion_id "
+				+ "AND ia.atraccion_id = A.id "
+				+ "AND U.id= ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
