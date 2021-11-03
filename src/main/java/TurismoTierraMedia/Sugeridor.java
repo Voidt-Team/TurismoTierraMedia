@@ -214,7 +214,8 @@ public class Sugeridor {
 			}
 
 			if (entrada.toUpperCase().compareTo("C") == 0) {
-				noMasCompras(usuario);
+				sugerirPromocionesPreferidas(usuario, promosPreferidas, atraccPreferidas, promosNoPreferidas,
+						atraccNoPreferidas, opcion, listaUsuarios);
 			}
 			try {
 				if (entrada.matches("-?\\d+(\\.,0\\d+)?")) {
@@ -315,7 +316,6 @@ public class Sugeridor {
 		if (!atraccItinerario.isEmpty()) {
 			mostrarItinerarioA(atraccItinerario);
 		}
-		// opcion = 99999;
 		App.consola();
 	}
 
