@@ -359,6 +359,9 @@ public class Sugeridor {
 					"---------------------------------------------------------------------------------------------------------------------------------");
 			System.out.println("\nPromocion: " + promo.getNombre() + ", precio: " + promo.costoPromocion()
 					+ " monedas, duracion: " + promo.tiempoPromocion() + " hs., bonus: " + promo.ImprimirBonus());
+			
+			//deberiamos llamar desde aca a que se guarde la suma de costos y tiempo de una promo
+			
 			System.out.println("\nAtracciones Incluidas:");
 			for (Atraccion atraccion : atraccionesPromo) {
 				System.out.println("\n* " + atraccion.getNombre());
@@ -368,6 +371,7 @@ public class Sugeridor {
 				"_________________________________________________________________________________________________________________________________");
 		System.out.println(
 				"\nCosto total de Promociones: " + suma_costos + " monedas, tiempo necesario: " + suma_horas + " hs.");
+	
 		System.out.println(
 				"=================================================================================================================================");
 	}
