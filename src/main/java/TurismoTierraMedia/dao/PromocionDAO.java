@@ -17,6 +17,8 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
+		//aca nos faltaria filtrar que no muestre las promociones que tienen una atraccion que ya se compro
+		//tambien filtrar teniendo en cuenta el presupuesto y tiempo del usuario
 		String query = "SELECT DISTINCT p.* FROM usuario u "
 				+ "JOIN atraccion a "
 				+ "JOIN promocion_tiene_atraccion pa "
@@ -54,6 +56,8 @@ public class PromocionDAO {
 		List<Promocion> lpromociones = new ArrayList<Promocion>();
 		Connection connection = ConnectionProvider.getConnection();
 
+		//aca nos faltaria filtrar que no muestre las promociones que tienen una atraccion que ya se compro
+		//tambien filtrar teniendo en cuenta el presupuesto y tiempo del usuario
 		String query = "SELECT DISTINCT p.* FROM usuario u "
 				+ "JOIN atraccion a "
 				+ "JOIN promocion_tiene_atraccion pa "

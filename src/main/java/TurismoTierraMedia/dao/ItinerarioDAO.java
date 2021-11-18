@@ -104,6 +104,7 @@ public class ItinerarioDAO {
 
 
 	//Devuelve la lista de promociones del itinerario de un usuario
+	//solo esta guardando un precio, no la suma
 	public List<Promocion> buscarItinerarioPromociones(Integer itinerario_id) throws SQLException {
 		List<Promocion> promociones =  new ArrayList<Promocion>();
 		PromocionDAO promocionDAO = new PromocionDAO();
@@ -127,7 +128,8 @@ public class ItinerarioDAO {
 		return promociones;
 	}
 
-	//Devuelve la lista de atracciones del itinerario de un usuario
+	//Devuelve la lista de promociones del itinerario de un usuario
+	//solo esta guardando un precio, no la suma
 	public List<Atraccion> buscarItinerarioAtracciones(Integer itinerario_id) throws SQLException {
 		List<Atraccion> atracciones =  new ArrayList<Atraccion>();
 		AtraccionDAO atraccionDAO = new AtraccionDAO();

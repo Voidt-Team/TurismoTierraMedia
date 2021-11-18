@@ -306,7 +306,9 @@ public class Sugeridor {
 	// mas--------------------------
 	public static void noMasCompras(Usuario usuario) throws SQLException {
 		System.out.println("Finalizo la ronda de compras!");
+		
 		ItinerarioDAO itinerario = new ItinerarioDAO();
+		//VER estos metodos
 		List<Promocion> promosItinerario = itinerario.buscarItinerarioPromociones(usuario.getIdItinerario());
 		List<Atraccion> atraccItinerario = itinerario.buscarItinerarioAtracciones(usuario.getIdItinerario());
 

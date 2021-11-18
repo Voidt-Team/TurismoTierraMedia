@@ -33,7 +33,8 @@ public class AtraccionDAO {
 		Connection connection = ConnectionProvider.getConnection();
 		
 		
-		//esta funciona...
+		//tenemos que tener en cuenta que no muestre atracciones que ya estan en una promo que compro
+		//tenemos una tabla promocion tiene atraccion
 		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
 				+ "FROM atraccion A INNER JOIN usuario U "
 				+ "INNER JOIN tipo_de_atraccion TA "
@@ -74,6 +75,8 @@ public class AtraccionDAO {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
 
+		//tenemos que tener en cuenta que no muestre atracciones que ya estan en una promo que compro
+		//tenemos una tabla promocion tiene atraccion
 		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
 				+ "FROM atraccion A "
 				+ "INNER JOIN usuario U "
