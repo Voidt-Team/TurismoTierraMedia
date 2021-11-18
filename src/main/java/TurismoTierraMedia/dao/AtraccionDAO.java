@@ -20,17 +20,18 @@ public class AtraccionDAO {
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		
-		preparedStatement.setInt(1, atra.getCupo() - 1);
-		preparedStatement.setInt(2, atra.getId());
-		
-		preparedStatement.executeUpdate();
+		if(atra.getCupo() > 0) {
+			preparedStatement.setInt(1, atra.getCupo() - 1);
+			preparedStatement.setInt(2, atra.getId());
+			preparedStatement.executeUpdate();
+		}
 	}
 
 	// Atracciones preferidas
 	public List<Atraccion> atraccionesPreferidas(Integer id) throws SQLException {
 		List<Atraccion> atracciones = new ArrayList<Atraccion>();
 		Connection connection = ConnectionProvider.getConnection();
-
+		
 		
 		//esta funciona...
 		String query = "SELECT DISTINCT A.*, TA.nombre as tipo_atraccion "
@@ -115,7 +116,9 @@ public class AtraccionDAO {
 		Connection connection = ConnectionProvider.getConnection();
 
 		String query = "SELECT a.id,a.nombre,a.costo,a.tiempo,a.cupo,ta.nombre as \"tipo_atraccion\" "
-				+ "FROM atraccion a join tipo_de_atraccion ta " + "ON a.tipo_atraccion_id = ta.id " + "WHERE a.id = ?";
+				+ "FROM atraccion a join tipo_de_atraccion ta " 
+				+ "ON a.tipo_atraccion_id = ta.id " 
+				+ "WHERE a.id = ?";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, id);
